@@ -1,8 +1,14 @@
 {
-  "type": "project",
-  "license": "proprietary",
+  "name": "remote-tech/sf-stimulus-turbo-ui-lib",
+  "description": "ui components and helpers for symfony applications that use stimulus and turbo frames",
   "minimum-stability": "stable",
-  "prefer-stable": true,
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Dorin Penea",
+      "email": "dorin.penea@sw.io"
+    }
+  ],
   "require": {
     "php": ">=8.3",
     "ext-ctype": "*",
