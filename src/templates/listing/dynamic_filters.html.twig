@@ -1,0 +1,56 @@
+<div class="expression-container overflow-x-auto" {{ stimulus_controller('listing--expression') }}>
+  <!-- MODAL - Filters -->
+  <button class="btn btn-sm hover rounded border-0 gap-1 d-none d-lg-block text-muted text-nowrap ms-auto px-2"
+          type="button" aria-expanded="false" style="max-height: 28px; float: right"
+          id="add-dynamic-filter"
+          data-action="click->listing--expression#openModal"
+  >
+    <i class="bi bi-plus-lg"></i> Add Filter
+  </button>
+  <div class="modal modal-sm fade operation" tabindex="-1" aria-labelledby="filters" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered">
+      <div class="modal-content rounded-bottom-sheet h-auto h-sm-100 mt-auto mt-sm-0">
+        <form name="dynamic-filters">
+          <div class="modal-header border-bottom-0 pb-0">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class="modal-body d-flex flex-column gap-2 py-0">
+
+            <div class="d-flex flex-column justify-content-center align-items-center">
+              <!-- Icon -->
+              <div class="bg-primary bg-opacity-10 rounded d-flex flex-shirnk-0 text-primary"
+                   style="height: 48px; width: 48px;">
+                <i class="bi bi-sliders align-self-center fs-4 mx-auto"></i>
+              </div>
+              <p class="fw-semibold h5 mt-2">Filter by</p>
+            </div>
+
+            <div class="d-flex flex-column align-items-center gap-2">
+              <div class="input-group">
+                <select class="form-select border-start-0 ps-0 attribute w-100" name="attribute">
+                  <option value="">Select column</option>
+                  {% for column, columnObj in columnsManager %}
+                    {% if columnObj.isFilter and not columnObj.isHiddenFilter %}
+                      <option data-options="{{ columnObj.getEnumFilterOptions() }}"
+                              data-type="{{ columnObj.dataType }}" value="{{ column }}">{{ columnObj.label }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="operation-container input-group operator"></div>
+              <div class="value-container input-group"></div>
+            </div>
+          </div>
+          <div class="modal-footer d-flex flex-row justify-content-center border-top-0">
+            <div type="button" class="btn btn-primary text-center w-100"
+                 data-action="click->listing--expression#applyFilters">Apply
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+  <div class="filter-badges-container d-flex overflow-x-auto"></div>
+</div>

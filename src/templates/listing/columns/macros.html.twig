@@ -1,0 +1,105 @@
+{% macro column_css_class(item) %}
+  {% set class='border-end px-3' %}
+
+  {% if item.column.listIndex %}
+    {% set class = 'bg-light border-end px-3 ps-lg-0 position-sticky' %}
+  {% endif %}
+
+  {{ class }}
+{% endmacro %}
+
+{% macro display_value(item) %}
+  {% if item.column.isEncoded is same as true %}
+    {{ encodeSQID(item.value) }}
+  {% elseif item.column.mappingOptions is not same as null %}
+    {{ item.column.mappingOptions[item.value] }}
+  {% else %}
+    {{ item.value }}
+  {% endif %}
+{% endmacro %}
+
+{% macro text_cell(item) %}
+  <td class="{{ _self.column_css_class(item) }}">
+    <span class="text-start copy-value small text-nowrap mb-0">
+      {{ _self.display_value(item) }}
+    </span>
+  </td>
+{% endmacro %}
+
+{% macro text_bold_cell(item) %}
+  <td class="{{ _self.column_css_class(item) }}">
+    <span class="text-start copy-value small text-nowrap fw-bold font-monospace mb-0">
+      {{ _self.display_value(item) }}
+    </span>
+  </td>
+{% endmacro %}
+
+{% macro link_cell(item) %}
+  <td class="{{ _self.column_css_class(item) }}">
+    <a href="{{ getColumnLink(item) }}" target="_top"
+       class="link-dark  {{ item.column.listIndex ? '' : 'font-monospace' }} copy-value text-nowrap fw-bold text-decoration-none fw-normal small mb-0">
+      {{ _self.display_value(item) }}
+    </a>
+  </td>
+{% endmacro %}
+
+{% macro date_cell(item) %}
+  <td class="{{ _self.column_css_class(item) }}">
+    <span class="text-start copy-value small text-nowrap font-monospace ">
+      {{ item.value|formatDateTime }}
+    </span>
+  </td>
+{% endmacro %}
+
+{% macro date_string_cell(item) %}
+  <td class="{{ _self.column_css_class(item) }}">
+    <span class="text-start copy-value small text-nowrap font-monospace ">
+      {{ item.value|formatDateTimeFromString }}
+    </span>
+  </td>
+{% endmacro %}
+
+{% macro datetime_cell(item) %}
+  <td class="{{ _self.column_css_class(item) }}">
+    <span class="text-start copy-value small text-nowrap font-monospace mb-0">
+      {{ item.value|formatDateTime }}
+    </span>
+  </td>
+{% endmacro %}
+
+{% macro days_passed_cell(item) %}
+  <td class="{{ _self.column_css_class(item) }}">
+    <span class="text-start copy-value small text-nowrap font-monospace mb-0">
+      {{ item.value|getNoOfDaysPassedFromTimestamp }}
+    </span>
+  </td>
+{% endmacro %}
+
+{% macro browser_cell(item) %}
+  <td class="{{ _self.column_css_class(item) }}">
+    <p class="text-start small text-nowrap mb-0 copy-value">
+      <i class="bi {{ getBrowserIconFromUserAgent(item.value) }} me-1"></i>
+      {{ getBrowserFromUserAgent(item.value) }}
+      {% if item.item.currentSession is defined and item.item.currentSession is same as 1 %}
+        <span class="ms-1 badge bg-success">Current</span>
+      {% endif %}
+    </p>
+  </td>
+{% endmacro %}
+
+{% macro os_cell(item) %}
+  <td class="{{ _self.column_css_class(item) }}">
+    <p class="text-start small text-nowrap mb-0 copy-value">
+      <i class="bi {{ getOSIconFromUserAgent(item.value) }} me-1"></i>
+      {{ getOSFromUserAgent(item.value) }}
+    </p>
+  </td>
+{% endmacro %}
+
+{% macro country_cell(item) %}
+  <td class="{{ _self.column_css_class(item) }}">
+    <p class="text-start copy-value small text-nowrap mb-0 copy-value">
+      {{ getCountryByCode(item.value) }}
+    </p>
+  </td>
+{% endmacro %}

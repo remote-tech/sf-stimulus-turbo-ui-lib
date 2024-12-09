@@ -1,0 +1,19 @@
+<turbo-stream action="update" id="items-list" target="no-results-container">
+  <template>
+    <div class="p-2 pt-md-3 pt-lg-3 pt-xl-3 pt-xxl-3 px-md-5 px-lg-5 px-xl-5 px-xxl-5">
+      {% include 'partials/noResults.html.twig' %}
+    </div>
+    <script>
+        tbl = document.getElementById('items-listing-table')
+        tbl.classList.add('d-none')
+      noResults = document.getElementById('no-results-container')
+      noResults.classList.remove('d-none')
+    </script>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="update" id="items-paging" target="table-paging">
+  <template>
+    {{ pagerfanta(items) }}
+  </template>
+</turbo-stream>

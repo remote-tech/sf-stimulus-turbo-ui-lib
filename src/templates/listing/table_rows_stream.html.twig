@@ -1,0 +1,41 @@
+<turbo-stream action="update" id="items-list" target="table-rows" {{ stimulus_controller('stream-load') }}>
+  <template>
+    {% for itemId, item in items %}
+      <tr class="bg-white border-bottom border-end">
+        {#  build the TD's  #}
+        {% for key, column in columnsManager.columns %}
+
+          {% set config = {value: item[key], item: item, column: column} %}
+          {% if (column.htmlFile is same as null)  %}
+            {% include  'listing/columns/'~ column.type~'_cell' ~ '.html.twig' with { config: config } only %}
+          {% else %}
+            {% include column.htmlFile with config  %}
+          {% endif %}
+        {% endfor %}
+
+        <!-- Actions -->
+        {% block actionsColumn %}{% endblock %}
+        <!-- End actions column -->
+      </tr>
+    {% endfor %}
+
+    <script>
+        noResults = document.getElementById('no-results-container')
+        noResults.classList.add('d-none')
+        tbl = document.getElementById('items-listing-table')
+        tbl.classList.remove('d-none')
+    </script>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="update" id="items-paging" target="table-paging" {{ stimulus_controller('stream-load') }}>
+  <template>
+    {{ pagerfanta(items) }}
+  </template>
+</turbo-stream>
+
+<turbo-stream action="update" id="context-menu-frame" target="context-menu" {{ stimulus_controller('stream-load') }}>
+  <template>
+    {% block listContextMenu %}{% endblock %}
+  </template>
+</turbo-stream>

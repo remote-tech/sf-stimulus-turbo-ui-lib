@@ -1,0 +1,136 @@
+{% macro list_search_input(name, placeholder) %}
+  <!-- Search -->
+  <span class="input-group-text bg-white border border-1 border-end-0">
+          <i class="bi bi-search"></i>
+        </span>
+  <input autocomplete="off" id="listSearch" type="text"
+         class="form-control border border-1 border-start-0 ps-0 dropdown-toggle"
+         data-bs-toggle="dropdown" data-bs-reference="parent" aria-expanded="false" data-bs-auto-close="outside"
+         placeholder="{{ placeholder }}" data-storageName="{{ name }}"
+         data-action="click->listing--search-bar#handleFocus"/>
+  <button id="clearSearch" style="display: none" class="btn border border-1 border-start-0 bg-white">
+    <a href="#" class="text-decoration-none small">
+      <i class="bi bi-x-lg text-muted small"></i>
+    </a>
+  </button>
+
+  <!-- RECENT SEARCHES -->
+  <div class="w-100 dropdown-menu rounded-bottom p-3">
+    <p class="small text-muted mb-2">Recents</p>
+    <div id="searchItems" style=" overflow-y: auto"></div>
+  </div>
+{% endmacro %}
+
+{% macro list_colum_sorting(columns, listingName) %}
+
+  <div {{ stimulus_controller('listing--columns-sorting') }} data-listing-name="{{ listingName }}" class="border p-3 dropdown-menu w-100">
+    <p class="px-0 fs-6 fw-bold mt-2">Visible Columns</p>
+    <div class="info_reorder d-flex align-items-center mt-4">
+      <i class="bi bi-info-circle-fill text-muted fs-5 me-2 mt-1"></i>
+      <p class="text-muted small lh-sm">You can reorder columns by dragging and dropping the column head.</p>
+    </div>
+    <div class="mt-3">
+      {{ _self.sortingContainerLayout(columns) }}
+    </div>
+  </div>
+{% endmacro %}
+
+
+{% macro sortingContainerLayout(columns) %}
+  <!-- DRAGGABLE ITEMS -->
+  <div id="sortable" class="sortable sortable-container">
+    {% for key, column in columns %}
+      {% if column.isListIndex is same as false and column.type != 'checkbox' %}
+        <div data-id="{{ key }}" draggable="true"
+             class="hover form-check d-flex border-0 rounded-2 py-1 px-2 mb-1 list-group-item-action">
+          <input data-id="{{ key }}" checked="checked" class="form-check-input ms-2 my-auto" type="checkbox"/>
+          <label class="form-check-label flex-grow-1 ms-2 my-auto"
+                 for="flexCheckDefault_1">{{ column.label }}</label>
+          <i class="bi bi-grip-horizontal fs-5 me-1 my-auto" style="cursor: grab;"></i>
+        </div>
+      {% elseif column.isListIndex is same as true %}
+        <div data-id="{{ key }}"
+             class="hover form-check d-flex border-0 rounded-2 py-1 px-2 mb-1 list-group-item-action">
+          <input data-id="{{ key }}" class="form-check-input ms-2 my-auto" type="checkbox" checked="checked"
+                 disabled="disabled"/>
+          <label class="form-check-label flex-grow-1 ms-2 my-auto">{{ column.label }}</label>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+  <!-- END DRAGGABLE ITEMS -->
+{% endmacro %}
+
+
+{% macro bottomColumnSortingWidget(columns, listingName) %}
+  <a href="#" class="d-flex flex-column align-items-center text-decoration-none small pt-2" data-bs-toggle="modal"
+     data-bs-target="#columnSorting">
+    <i class="bi bi-toggle-on fs-5"></i>
+    <p class="small">Columns</p>
+  </a>
+
+  <!-- MODAL - column sorting -->
+  <div class="modal modal-sm fade" id="columnSorting" tabindex="-1" aria-labelledby="columnSorting" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-sm-down layout-bottom-sheet modal-dialog-centered">
+      <div class="modal-content modal-bottom-sheet rounded-bottom-sheet h-auto h-sm-100 mt-auto mt-sm-0">
+        <div class="modal-header border-bottom-0">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Columns</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body d-flex flex-column pb-0" data-listing-name="{{ listingName }}"
+            {{ stimulus_controller('listing--columns-sorting') }}>
+          {{ _self.sortingContainerLayout(columns) }}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endmacro %}
+
+{% macro bottomSearchWidget() %}
+  <a href="#" class="d-flex flex-column align-items-center text-decoration-none small pt-2" data-bs-toggle="modal"
+     data-bs-target="#searchModal">
+    <i class="bi bi-search fs-5"></i>
+    <p class="small">Search</p>
+  </a>
+
+  <!-- MODAL - searh term -->
+  <div class="modal modal-sm fade" id="searchModal" tabindex="-1" aria-labelledby="searchModal" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-sm-down layout-bottom-sheet modal-dialog-centered">
+      <div class="modal-content modal-bottom-sheet rounded-bottom-sheet h-auto h-sm-100 mt-auto mt-sm-0"
+          {{ stimulus_controller('listing--footer-search-modal') }}>
+        <div class="modal-header border-bottom-0">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Search</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body d-flex flex-column pb-0">
+          <label>
+            <input type="text" class="form-control" name="searchTerm"/>
+          </label>
+        </div>
+        <div class="modal-footer d-flex flex-row justify-content-center border-top-0">
+          <div class="d-flex gap-2 border-top-0 pt-3 w-100">
+            <button class="btn btn-outline-secondary text-center w-100" data-action="click->listing--footer-search-modal#reset">Reset</button>
+            <button class="btn btn-primary text-center w-100" data-action="click->listing--footer-search-modal#search">Search</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endmacro %}
+
+{% macro bottomDynamicFilter() %}
+  <a type="button" onclick="$('#add-dynamic-filter').click()"
+     class="d-flex flex-column align-items-center text-decoration-none small pt-2">
+    <i class="bi bi-funnel fs-5"></i>
+    <p class="small">Add Filters</p>
+  </a>
+{% endmacro %}
+
+{% macro bottomExport(listingName, link) %}
+  <a  data-turbo="false" type="button" {{ stimulus_controller('listing--export-csv') }}
+     data-listing-name="{{ listingName }}" data-href="{{ link }}"
+     class="d-flex flex-column align-items-center text-decoration-none small pt-2">
+    <i class="bi bi-download fs-5"></i>
+    <p class="small">Export</p>
+  </a>
+{% endmacro %}

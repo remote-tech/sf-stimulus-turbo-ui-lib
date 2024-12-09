@@ -1,0 +1,11 @@
+{%- block form_error -%}
+    <div class="alert bg-danger bg-opacity-10 border border-danger rounded px-2 py-1 mb-3 d-block">
+      <div class="d-flex gap-3 align-items-center">
+        <i class="bi bi-check text-danger fs-2"></i>
+        <div class="d-flex flex-column justify-content-center">
+          <p class="small">{{ errorMessages }}</p>
+        </div>
+        <button type="button" class="btn-close ms-auto me-0" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    </div>
+{%- endblock form_error %}

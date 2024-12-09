@@ -1,0 +1,89 @@
+<div class="table_list table-responsive bg-light flex-grow-1 h-100">
+  <script>
+      let tbl = document.getElementById('items-listing-table')
+      let noResults = document.getElementById('no-results-container')
+  </script>
+  <div id="no-results-container"></div>
+  <table {{ stimulus_controller('listing--list-actions') }} class="table table-hover mb-0" id="items-listing-table">
+    <thead class="table-light text-nowrap small">
+    <tr class="border-bottom font-monospace " {{ stimulus_controller('listing--column-values-sorting') }}>
+      {% set hasCheckbox = 0 %}
+      {% for key, column in columnsManager.columns %}
+        {% if column.type == 'checkbox' %}
+          {% set hasCheckbox = 1 %}
+          <th class="fixed_cell fw-normal fs-6 px-3 ps-lg-5 pe-0 width-1 zindex-5">
+            <input type="checkbox" class="select-all form-check-input me-2 ps-lg-2" value="" data-action="change->listing--list-actions#toggleAll"/>
+          </th>
+        {% else %}
+          <th data-id="{{ key }}" scope="row"
+              class="fixed_cell  border-end fw-normal px-3 {{ column.listIndex ? ' ps-lg-0 position-sticky list_index ' : '' }} {{ column.cssClass }}">
+            {% if column.isSortable %}
+                <a data-id="{{ column.dbId }}" href="javascript:void(0)" class="sort-link text-decoration-none link-dark">
+            {% endif %}
+            <div class="item d-flex">
+              <span class="copy-value d-none d-lg-flex justify-content-between text-dark w-100 {{ column.listIndex ? 'pe-5' : '' }}">{{ column.label }}</span>
+              <span class="d-flex d-lg-none justify-content-between text-dark w-100 {{ column.listIndex ? 'pe-3' : '' }}">{{ column.label }}</span>
+              {% if column.isSortable %}
+                <i class="bi bi-arrow-down-up"></i>
+              {% endif %}
+            </div>
+            {% if column.isSortable %}
+                </a>
+            {% endif %}
+          </th>
+        {% endif %}
+
+      {% endfor %}
+    </tr>
+    </thead>
+    <tbody id="table-rows">
+    {% for i in range(0, 9) %}
+      <tr>
+        {% set hasCheckbox = 0 %}
+        {% set idx = 0 %}
+        {% for key, column in columnsManager.columns %}
+          {% if column.type == 'checkbox' %}
+            {% set hasCheckbox = 1 %}
+            <th class="fixed_cell bg-light fw-normal pe-lg-0 px-3 ps-lg-5 pe-0 width-1">
+              <input type="checkbox" class="select-all form-check-input me-2 ps-lg-2" value="" data-action="change->listing--list-actions#toggleAll" />
+            </th>
+          {% else %}
+            {% set idx = idx + 1 %}
+            <td class="placeholder-glow {{ idx == 1 ? 'bg-light' : '' }} border-end px-3 {{ column.listIndex ? (hasCheckbox == 1 ? 'ps-lg-0' : 'ps-lg-5') : '' }}">
+                <span class="placeholder-table rounded-xs small mb-0">Loading data...</span>
+            </td>
+          {% endif %}
+        {% endfor %}
+      </tr>
+    {% endfor %}
+
+    </tbody>
+  </table>
+</div>
+
+{# pagination stream section#}
+<nav id="table-paging" class="placeholder-table-glow bg-white border-top d-flex flex-column flex-lg-row gap-3 justify-content-between font-monospace p-2 px-xl-5">
+  <div class="d-flex align-items-center justify-content-start">
+    <p class="placeholder-table text-nowrap small mb-0" href="#" tabindex="-1" aria-disabled="true">Showing 1 to 20 of 1,033</p>
+
+    <select class="placeholder-table form-select form-select-sm d-block d-lg-none ms-auto" aria-label="example" style="width: 105px; height: 32px;">
+      <option value="10">10 rows</option>
+    </select>
+  </div>
+
+  <div class="d-flex flex-column flex-sm-row justify-content-end mb-0">
+    <ul class="placeholder-glow d-flex justify-content-between align-items-center small mb-0 px-0 list-unstyled">
+      <li class="placeholder-table rounded-xs px-2">1000</li>
+
+      <li class="placeholder-table rounded-xs px-3">1</li>
+      <li class="placeholder-table rounded-xs px-3">20</li>
+
+      <li class="placeholder-table rounded-xs px-2">300</li>
+      <li class="placeholder-table rounded-xs px-2">4000</li>
+    </ul>
+
+    <select class="placeholder-table form-select form-select-sm d-none d-lg-block ms-1" aria-label="example" style="width: 105px; height: 35px;">
+      <option value="10">10 rows</option>
+    </select>
+  </div>
+</nav>
