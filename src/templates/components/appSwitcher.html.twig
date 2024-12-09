@@ -1,0 +1,20 @@
+<!-- App Switcher -->
+<div class="dropdown">
+  <!-- Logo  -->
+  <a href="#" class="text-decoration-none" id="appSwitcherController" >
+    <div class="p-2">
+    <div class="d-flex align-items-center hover rounded-1 p-2">
+      <div class="bg-primary bg-opacity-10 d-flex rounded" style="height: 48px; width: 48px;">
+        <i class="bi {{ sidebarLogo }} align-self-center fs-4 text-primary rounded-circle mx-auto"></i>
+      </div>
+      <div class="small ms-3">
+        <b class="h5 text-primary fw-bold">{{ domain }}</b>
+        <p class="small text-muted text-uppercase fw-bold mb-0">Account Management</p>
+      </div>
+    </div>
+    </div>
+  </a>
+</div>
+<script defer type="text/javascript">
+    appLauncher.initPlugin('appSwitcherController');
+</script>

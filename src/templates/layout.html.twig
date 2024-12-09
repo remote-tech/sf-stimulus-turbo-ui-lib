@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block sidebar %}
+    <div class="d-none d-lg-flex">
+      {% set sidebarMinified = app.request.cookies.get('sidebar_min') is same as null ? 'false': app.request.cookies.get('sidebar_min') %}
+
+      {% set sidebarLogo = 'bi-person-badge-fill'  %}
+      {% include 'partials/sidebar.html.twig' %}
+      {% include 'partials/sidebar_minimized.html.twig' %}
+    </div>
+
+    {% include 'partials/sidebar_mobile.html.twig' %}
+{% endblock %}
+
+{% block body %}
+  <!-- HEADER -->
+  <div class="bg-white border-bottom p-3 pt-md-3 px-lg-5 w-100">
+
+    <div class="row">
+      <div class="col-6 col-lg-5 col-xl-7">
+        {% block breadcrumb %}
+          <nav aria-label="breadcrumb" class="small" style="height: 21px;"></nav>
+        {% endblock %}
+        {% block pageTitle %}
+{#          {% set pageTitle = 'Risk Assesment List' %}#}
+          <span class="d-block d-sm-none fw-bold small">{{ pageTitle }}</span>
+          <span class="d-none d-sm-block fw-bold fs-5">{{ pageTitle }}</span>
+        {% endblock %}
+      </div>
+      <turbo-frame id="top-right-search-bar" class="d-flex col-6 col-lg-7 col-xl-5">
+        <div id="top-right-search-bar-content" class="ms-auto align-self-center">
+        {% block topRightSearchBar %}{% endblock %}
+        </div>
+      </turbo-frame>
+
+    </div>
+
+    <!-- MAIN FILTERS -->
+    {% block mainFilters %}{% endblock %}
+  </div>
+
+  <!-- CONTENT -->
+  <div class="d-flex flex-column h-100 w-100 overflow-auto" data-turbo="true">
+    {% block contentFrame %}{% endblock %}
+  </div>
+{% endblock %}

@@ -1,0 +1,18 @@
+<turbo-stream action="update" target="tabs-content" {{ stimulus_controller('stream-load') }}>
+  <template>
+    {%block pageContent %}Must override pageContent {% endblock %}
+    {%block listActions %}{% endblock %}
+  </template>
+</turbo-stream>
+
+<turbo-stream action="update" id="tab-filters" target="top-right-filters" {{ stimulus_controller('stream-load') }}>
+  <template>
+   {% block pageContentFilters %}{% endblock %}
+  </template>
+</turbo-stream>
+
+<turbo-stream action="update" id="top-right-search-bar" target="top-right-search-bar-content" {{ stimulus_controller('stream-load') }}>
+  <template>
+   {% block topRightSearch %}{% endblock %}
+  </template>
+</turbo-stream>
