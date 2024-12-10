@@ -34,14 +34,14 @@
     }
   },
   "scripts": {
-    "auto-scripts": {
-      "cache:clear": "symfony-cmd"
-    },
     "post-install-cmd": [
-      "@auto-scripts"
+      "@npm-install"
     ],
     "post-update-cmd": [
-      "@auto-scripts"
+      "@npm-install"
+    ],
+    "npm-install": [
+      "if [ -f package.json ]; then npm install; fi"
     ]
   }
 }
