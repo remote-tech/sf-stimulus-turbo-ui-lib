@@ -25,7 +25,7 @@
   },
   "autoload": {
     "psr-4": {
-      "RemoteTech\\ComAxe\\Client\\": "src/"
+      "RemoteTech\\SfStimulusTurboUI\\": "src/"
     }
   },
   "extra": {
