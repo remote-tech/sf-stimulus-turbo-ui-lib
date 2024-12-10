@@ -41,7 +41,7 @@
       "@npm-install"
     ],
     "npm-install": [
-      "if [ -f package.json ]; then npm install; fi"
+      "npm install"
     ]
   }
 }
