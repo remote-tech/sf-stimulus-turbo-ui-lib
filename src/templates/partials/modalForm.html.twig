@@ -1,0 +1,14 @@
+<turbo-frame id="modal-body">
+  {{ form_start(form, {'attr':{'autocomplete': 'off', 'data-reload-frame-id': 'tabs-content'}}) }}
+  {{ form_errors(form) }}
+  {% block modalFormFields %}
+    {{ form_rest(form) }}
+  {% endblock %}
+  <!-- Submit -->
+  <div class="d-flex flex-row gap-2 justify-content-center border-top-0">
+    <button id="submitUserInfo" type="submit" formnovalidate="formnovalidate"
+            class="btn btn-primary text-center w-100">Save
+    </button>
+  </div>
+  {{ form_end(form) }}
+</turbo-frame>

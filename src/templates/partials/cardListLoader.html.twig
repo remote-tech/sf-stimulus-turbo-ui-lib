@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-12">
+    <div class="list-group rounded-lg p-0">
+      {% for i in range(0, 3) %}
+        <div class="placeholder-glow list-group-item p-0">
+          <div class="d-flex align-items-center p-2">
+
+            <!-- Icon -->
+            <div class="placeholder rounded d-flex flex-shrink-0" style="height: 45px; width: 45px;">
+              <i class="bi bi-cpu-fill align-self-center mx-auto fs-4"></i>
+            </div>
+
+            <!-- Data -->
+            <div class="flex-grow-1 justify-content-center ms-3">
+              <a href="" class="text-decoration-none">
+                <span class="placeholder rounded-xs fw-bold text-dark small">IoT Core</span>
+                <p class="small mb-0 font-monospace">
+                  <small class="placeholder rounded-xs link-dark">Device Management</small>
+                </p>
+              </a>
+            </div>
+
+            <span class="placeholder rounded-xs d-none d-lg-block small">Subscribed Jun 2023</span>
+            <span class="placeholder rounded-xs d-block d-lg-none" style="font-size: 12px;">Subscribed Jun 2023</span>
+
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

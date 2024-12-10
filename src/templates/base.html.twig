@@ -5,22 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Risk Assessment - Remote Tech{% endblock %}</title>
   <link rel="icon" href="">
-{#  <link rel="stylesheet" href="{{ asset('styles/style.css') }}">#}
 
   {% block stylesheets %}
-    {{ encore_entry_link_tags('app') }}
+{#    override this to include CSS based on project requirements #}
   {% endblock %}
 
   {% block javascripts %}
-{#    <script src="{{ app.request.server.get('APP_WIDGET_URL') }}"></script>#}
-    <script src="{{ app.request.server.get('AXE_API_HOST') }}/app_widget/app_launcher_widget.js"></script>
-    <script defer type="text/javascript">
-        appLauncher.initPlugin('btnOpenModal');
-    </script>
-
-
-{#    {{ importmap('app') }}#}
-    {{ encore_entry_script_tags('app') }}
+    {#    override this to include JS based on project requirements #}
   {% endblock %}
 </head>
 
@@ -35,7 +26,6 @@
 {% endfor %}
 
 <div class="d-flex flex-column flex-lg-row overflow-hidden h-100">
-  {% set domain = 'Risk Assessment' %}
 
   {% block header %} {% endblock %}
   {% block sidebar %} {% endblock %}
@@ -48,11 +38,11 @@
   {% block footer %}{% endblock %}
 </div>
 {% block confirm_modal %}
-  {% include 'partials/confirmationModal.html.twig' %}
+  {% include '@rt_sf_ui_lib/partials/confirmationModal.html.twig' %}
 {% endblock %}
 
 {% block form_modal %}
-  {% include 'partials/baseFormModal.html.twig' %}
+  {% include '@rt_sf_ui_lib/partials/baseFormModal.html.twig' %}
 {% endblock %}
 
 <div id="loader" style="display: none;">

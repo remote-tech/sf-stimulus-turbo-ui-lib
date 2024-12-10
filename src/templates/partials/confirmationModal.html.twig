@@ -1,0 +1,39 @@
+<div
+    class="modal confirmationModal modal-sm fade"
+    aria-hidden="true"
+    data-confirm-action-target="modal"
+>
+  <div class="modal-dialog modal-fullscreen-sm-down layout-bottom-sheet modal-dialog-centered">
+    <div class="modal-content modal-bottom-sheet rounded-bottom-sheet h-auto h-sm-100 mt-auto mt-sm-0"
+         data-turbo="true">
+      <div class="modal-header border-bottom-0">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body d-flex flex-column pt-0 pb-5 pb-lg-3">
+        <div class="confirmationModalIconContainer d-flex flex-column justify-content-center align-items-center">
+          <!-- Icon -->
+          <div class="iconPlaceholder bg-opacity-10 rounded d-flex flex-shirnk-0 text-danger square-64">
+            <i class="bi bi-x-circle align-self-center fs-2 mx-auto"></i>
+          </div>
+
+          <p class="confirmationModalTitle fw-semibold h5 mt-3">##modalTitle##</p>
+        </div>
+
+        <div class="confirmationModalMessage text-center text-muted mb-3 mt-2">##confirmationMessage##</div>
+
+        <div class="actionButtons d-flex gap-2 border-top-0 pt-3">
+          <div type="button" data-bs-dismiss="modal" class="btn btn-outline-secondary text-center w-100">Cancel</div>
+          <div type="button"
+               data-submit="##confirmPath##"
+               data-ids=""
+               data-reload-frame-id="##tabs-content##"
+               class="confirmationModalButton btn btn-danger text-center w-100"
+          >Confirm
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

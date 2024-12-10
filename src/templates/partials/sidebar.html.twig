@@ -1,0 +1,100 @@
+<div class="sidebar-toggle bg-white border-end flex-column flex-shrink-0 vh-100
+{{ sidebarMinified is same as 'true' ? 'd-none' : 'd-lg-flex' }}"
+     style="width: 280px;">
+  <!-- App Switcher -->
+  {% include '@rt_sf_ui_lib/components/appSwitcher.html.twig' %}
+
+  <!-- Toggle sidebar button -->
+  <a {{ stimulus_controller('sidebar-toggle') }} type="button"
+                                                 class="bg-white border d-flex align-items-center text-muted justify-content-center rounded-circle position-absolute"
+                                                 style="height: 24px; width: 24px; top: 26px; left: 268px; z-index: 1021">
+    <i class="bi bi-arrow-left-short"></i>
+  </a>
+
+  {% block sidebarContextSelector %}
+    <!-- context selector -->
+    <!-- end context selector -->
+  {% endblock %}
+
+  <!-- Nav Links -->
+  <div class="overflow-auto">
+    <ul class="nav flex-column px-3">
+
+      <!-- Link - Spaces -->
+      {% block sidebarLinks %}
+        <li class="nav-item">
+          <a href=""
+             class="nav-link list-group-item-action rounded-1 d-flex align-items-center bg-primary bg-opacity-25 text-primary hover">
+            <i class="bi bi-file-earmark-text-fill me-2"></i>
+            <p>Link 1</p>
+
+            <span class="badge bg-white text-dark border ms-auto fw-bold align-self-center p-1" data-bs-toggle="tooltip"
+                  data-bs-placement="top" style="width: 48px;">
+                <turbo-frame src="" id="sidebar_workspaces_count"
+                             class="placeholder-glow" {{ stimulus_controller('sidebar-frames-count') }}>
+                  <span class="placeholder p-1">12</span>
+                </turbo-frame>
+            </span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href=""
+             class="nav-link list-group-item-action rounded-1 d-flex align-items-center hover">
+            <i class="bi bi-file-earmark-text-fill me-2"></i>
+            <p>Link 2</p>
+
+            <span class="badge bg-white text-dark border ms-auto fw-bold align-self-center p-1" data-bs-toggle="tooltip"
+                  data-bs-placement="top" style="width: 48px;">
+                <turbo-frame src="" id="sidebar_workspaces_count"
+                             class="placeholder-glow" {{ stimulus_controller('sidebar-frames-count') }}>
+                  <span class="placeholder p-1">11</span>
+                </turbo-frame>
+            </span>
+          </a>
+        </li>
+
+
+      {% endblock %}
+    </ul>
+  </div>
+
+  <ul class="nav flex-column mt-auto mb-0 px-3 pt-3">
+    {% block sidebarBottomLinks %}
+      <!-- Link -->
+      <li class="nav-item">
+        <a href="#" class="nav-link list-group-item-action hover rounded-1 d-flex align-items-center">
+          <i class="bi bi-book-half me-2"></i>
+          <p class="mb-0">Documentation</p>
+        </a>
+      </li>
+    {% endblock %}
+
+    {% block sidebarLoggedInUser %}
+      <!-- LoggedIn User link -->
+      <li class="nav-item rounded-1 d-flex justify-content-between ">
+        <div class="nav-item" {{ stimulus_controller('account-name') }}>
+          <a href="#" class="nav-link text-nowrap" style="max-width: 200px;">
+            <i class="bi bi-person-circle me-1 sticky-start"></i>
+            <span class="account-name" data-id="user-names">
+            {{ (app.user.firstName | default('')) ~ ' ' ~ (app.user.lastName | default('')) }}
+          </span>
+          </a>
+        </div>
+
+        <div class="nav-item">
+          {% if app.user %}
+            <a href="{{ path('app_logout') }}" class="nav-item text-nowrap d-flex ms-auto align-items-center">
+              <i class="bi bi-power nav-link link-dark"></i>
+            </a>
+          {% endif %}
+        </div>
+      </li>
+    {% endblock %}
+  </ul>
+
+  <div class="text-center small mt-3 px-3 pb-3">
+    <p class="border-top text-muted small mb-0" style="padding-top: 16px;">
+      © {{ date('now').format('Y') }} REMOTE TECH LTD
+    </p>
+  </div>
+</div>

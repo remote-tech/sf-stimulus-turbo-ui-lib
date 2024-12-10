@@ -1,0 +1,126 @@
+<nav class="navbar navbar-expand-lg bg-white border-bottom d-block d-lg-none">
+  <div class="container-fluid">
+
+    <!-- App Switcher -->
+    {% include '@rt_sf_ui_lib/components/appSwitcherMobile.html.twig' %}
+
+    <!-- Burger Menu Button -->
+    <div class="navbar-toggler border-0" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </div>
+
+    <!-- Nav Links -->
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav" style="height: 90vh;">
+        <!-- Organisation Dropdown -->
+        <li class="nav-item dropdown mt-4">
+{#              <select id="organisation_context_mobile" class="bootstrapStyle w-100" name="sidebar_organisation"#}
+{#                  {{ stimulus_controller('sidebar-organisation', {ajaxPath: url('account_organisation_context')}) }}>#}
+{#                {% for key, name in getOrganisations() %}#}
+{#                  <option value="{{ key }}"#}
+{#                      {% if app.session.get('organisationId') == key %} selected="selected" {% endif %}>#}
+{#                    {{ name }}#}
+{#                  </option>#}
+{#                {% endfor %}#}
+{#              </select>#}
+        </li>
+
+        <!-- List Item - Overview -->
+{#        <li class="nav-item mt-2">#}
+{#          <a href="{{ path('account_overview') }}"#}
+{#             class="nav-link list-group-item-action rounded-1 d-flex align-items-center px-3#}
+{#                {{ 'Overview' in app.request.attributes.get('_controller')  ? 'bg-primary bg-opacity-25 text-primary' : '' }}"#}
+{#             aria-current="page" style="height: 44px;">#}
+{#            <i class="bi bi-speedometer me-2"></i>#}
+{#            <p class="mb-0">Overview</p>#}
+{#          </a>#}
+{#        </li>#}
+
+{#        <!-- List Item - Workspaces -->#}
+{#        <li class="nav-item mt-2">#}
+{#          <a href="{{ path('account_workspaces') }}"#}
+{#             class="nav-link list-group-item-action rounded-1 d-flex align-items-center px-3#}
+{#             {{ 'Workspace' in app.request.attributes.get('_controller')  ? 'bg-primary bg-opacity-25 text-primary' : '' }}"#}
+{#             aria-current="page" style="height: 44px;">#}
+{#            <i class="bi bi-buildings-fill me-2"></i>#}
+{#            <p class="mb-0">Workspaces</p>#}
+{#          </a>#}
+{#        </li>#}
+
+{#        <!-- List Item - Users -->#}
+{#        <li class="nav-item mt-2">#}
+{#          <a href="{{ path('account_users') }}"#}
+{#             class="nav-link list-group-item-action rounded-1 d-flex align-items-center px-3#}
+{#            {{ 'Users' in app.request.attributes.get('_controller')  ? 'bg-primary bg-opacity-25 text-primary' : '' }}"#}
+{#             aria-current="page" style="height: 44px;">#}
+{#            <i class="bi bi-people-fill me-2"></i>#}
+{#            <p class="mb-0">Users</p>#}
+{#          </a>#}
+{#        </li>#}
+
+{#        <!-- List Item - Services -->#}
+{#        <li class="nav-item mt-2">#}
+{#          <a href="{{ path('account_services') }}"#}
+{#             class="nav-link list-group-item-action rounded-1 d-flex align-items-center px-3#}
+{#             {{ 'Services' in app.request.attributes.get('_controller')  ? 'bg-primary bg-opacity-25 text-primary' : '' }}"#}
+{#             aria-current="page" style="height: 44px;">#}
+{#            <i class="bi bi-grid-fill me-2"></i>#}
+{#            <p class="mb-0">Services</p>#}
+{#          </a>#}
+{#        </li>#}
+
+{#        <!-- List Item - Activity -->#}
+{#        <li class="nav-item mt-2">#}
+{#          <a href="{{ path('account_organisation_activity') }}"#}
+{#             class="nav-link list-group-item-action rounded-1 d-flex align-items-center px-3#}
+{#             {{ 'Activity' in app.request.attributes.get('_controller')  ? 'bg-primary bg-opacity-25 text-primary' : '' }}"#}
+{#             aria-current="page" style="height: 44px;">#}
+{#            <i class="bi bi-calendar2-week me-2"></i>#}
+{#            <p class="mb-0">Activity</p>#}
+{#          </a>#}
+{#        </li>#}
+
+{#        <!-- List Item - Documentation -->#}
+{#        <li class="nav-item mt-auto">#}
+{#          <a href="/documenation" class="nav-link list-group-item-action rounded-1 d-flex align-items-center px-3"#}
+{#             aria-current="page" style="height: 44px;">#}
+{#            <i class="bi bi-book-half me-2"></i>#}
+{#            <p class="mb-0">Documentation</p>#}
+{#          </a>#}
+{#        </li>#}
+
+{#        <!-- List Item - Support -->#}
+{#        <li class="nav-item mt-2">#}
+{#          <a href="/support" class="nav-link list-group-item-action rounded-1 d-flex align-items-center px-3"#}
+{#             aria-current="page" style="height: 44px;">#}
+{#            <i class="bi bi-life-preserver me-2"></i>#}
+{#            <p class="mb-0">Support</p>#}
+{#          </a>#}
+{#        </li>#}
+
+{#        <!-- List Item - Admin User -->#}
+{#        <li class="nav-item d-flex my-2">#}
+{#          <a href="{{ path('app_account') }}"#}
+{#             class="nav-link list-group-item-action rounded-1 d-flex align-items-center px-3 {{ app.request.attributes.get('_route') in ['app_account'] ? 'bg-primary bg-opacity-25 text-primary' : '' }}"#}
+{#             aria-current="page" style="height: 44px;">#}
+{#            <i class="bi bi-person-circle me-2"></i>#}
+{#            <p class="mb-0">{{ (app.user.firstName | default('')) ~ ' ' ~ (app.user.lastName | default('')) }}</p>#}
+{#          </a>#}
+
+{#          <a href="{{ path('app_logout') }}"#}
+{#             class="nav-link list-group-item-action border rounded-3 d-flex align-items-center justify-content-center px-3"#}
+{#             style="height: 44px; width: 44px;">#}
+{#            <i class="bi bi-power"></i>#}
+{#          </a>#}
+{#        </li>#}
+
+        <li class="text-center small mb-2">
+          <p class="text-muted border-top small mb-0" style="padding-top: 12px;">© {{ date('now').format('Y') }} REMOTE
+            TECH LTD</p>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>

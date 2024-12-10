@@ -1,0 +1,189 @@
+{%- block pager_widget -%}
+  <div class="d-flex align-items-center justify-content-start">
+    <p class="text-nowrap small mb-0" tabindex="-1">
+      Showing <b>{{ pagerfanta.getCurrentPageOffsetStart() }}</b>
+      to <b>{{ pagerfanta.getCurrentPageOffsetEnd() }}</b>
+      of <b>{{ pagerfanta.getNbResults() }}</b>
+    </p>
+    <div class="d-block d-lg-none text-muted ms-auto">
+      <select id="pgSelectorMobile"
+              style="width: 105px; height: 32px;" {{ stimulus_controller('listing--pagination-items-per-page') }}>
+        {{- block('perPageSelectorOptions') -}}
+      </select>
+    </div>
+  </div>
+  <div class="d-flex flex-column flex-sm-row justify-content-end mb-0"
+      {{ stimulus_controller('listing--pagination-page-links') }}>
+    <ul class="d-flex justify-content-between align-items-center small text-muted mb-0 px-0 overflow-auto">
+      {{- block('pager') -}}
+    </ul>
+    <div class="d-none d-lg-block text-muted ms-auto">
+      <select id="pgSelectorDesktop" {{ stimulus_controller('listing--pagination-items-per-page') }}>
+        {{- block('perPageSelectorOptions') -}}
+      </select>
+    </div>
+  </div>
+{%- endblock pager_widget -%}
+
+
+
+{% block perPageSelectorOptions %}
+  {% for i in ['100', '50', '25', '10'] %}
+    <option value="{{ i }}" {{ app.request.query.get('items') is same as i ? "selected" : "" }}>{{ i }} rows</option>
+  {% endfor %}
+{% endblock %}
+
+
+{%- block pager -%}
+  {# Previous Page Link #}
+  {%- if pagerfanta.hasPreviousPage() -%}
+    {# FIRST Page Link #}
+    {{- block('first_page_link') -}}
+
+    {%- set path = route_generator.route(pagerfanta.getPreviousPage()) -%}
+    {%- set page = pagerfanta.getPreviousPage() -%}
+    {{- block('previous_page_link') -}}
+  {%- else -%}
+    {{- block('first_page_link_disabled') -}}
+    {{- block('previous_page_link_disabled') -}}
+  {%- endif -%}
+
+  {# display only 3 pages - current , current-1 and current+1 #}
+  {%  if current_page > 2  and current_page < nb_pages - 2 %}
+    {% set start_page = current_page - 1 %}
+    {% set end_page = current_page + 1 %}
+  {% elseif current_page < 3 and nb_pages > 4 %}
+    {% set end_page = 4 %}
+  {% elseif current_page > nb_pages - 3 and nb_pages > 4 %}
+    {% set start_page = nb_pages - 3 %}
+  {% endif %}
+
+  {# First Page Link #}
+  {%- if start_page > 1 -%}
+    {%- set page = 1 -%}
+    {%- set path = route_generator.route(page) -%}
+    {{- block('page_link') -}}
+  {%- endif -%}
+
+  {# Second Page Link, displays if we are on page 3 #}
+{#  {%- if start_page == 3 -%}#}
+{#    {%- set page = 2 -%}#}
+{#    {%- set path = route_generator.route(page) -%}#}
+{#    {{- block('page_link') -}}#}
+{#  {%- endif -%}#}
+
+  {# Separator, creates a "..." separator to limit the number of items if we are starting beyond page 3 #}
+  {%- if start_page > 2 -%}
+    {{- block('ellipsis') -}}
+  {%- endif -%}
+
+  {# Page Links #}
+  {%- for page in range(start_page, end_page) -%}
+    {%- set path = route_generator.route(page) -%}
+    {%- if page == current_page -%}
+      {{- block('current_page_link') -}}
+    {%- else -%}
+      {{- block('page_link') -}}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {# Separator, creates a "..." separator to limit the number of items if we are over 3 pages away from the last page #}
+  {%- if end_page < (nb_pages - 1) -%}
+    {{- block('ellipsis') -}}
+  {%- endif -%}
+
+  {# Second to Last Page Link, displays if we are on the third from last page #}
+{#  {%- if end_page == (nb_pages - 2) -%}#}
+{#    {%- set page = (nb_pages - 1) -%}#}
+{#    {%- set path = route_generator.route(page) -%}#}
+{#    {{- block('page_link') -}}#}
+{#  {%- endif -%}#}
+
+  {# Last Page Link #}
+  {%- if nb_pages > end_page -%}
+    {%- set page = nb_pages -%}
+    {%- set path = route_generator.route(page) -%}
+    {{- block('page_link') -}}
+  {%- endif -%}
+
+  {# Next Page Link #}
+  {%- if pagerfanta.hasNextPage() -%}
+    {%- set path = route_generator.route(pagerfanta.getNextPage()) -%}
+    {%- set page = pagerfanta.getNextPage() -%}
+    {{- block('next_page_link') -}}
+    {{- block('last_page_link') -}}
+  {%- else -%}
+    {{- block('next_page_link_disabled') -}}
+    {{- block('last_page_link_disabled') -}}
+  {%- endif -%}
+{%- endblock pager -%}
+
+{% block first_page_link %}
+  <a class="hover nav-link rounded-xs px-2 px-sm-3 px-md-3 px-lg-3" href="{{- route_generator.route(1) -}}"
+     rel="prev">{{- block('first_page_message') -}}</a>
+{%- endblock first_page_link -%}
+
+{%- block first_page_link_disabled -%}
+  <span class="hover rounded-xs px-2 px-sm-3 px-md-3 px-lg-3">{{- block('first_page_message') -}}</span>
+{%- endblock first_page_link_disabled -%}
+
+{%- block first_page_message -%}
+  <i class="bi bi-chevron-bar-left"></i>
+{%- endblock first_page_message -%}
+
+{%- block page_link -%}
+  <a class="hover nav-link rounded-xs px-2 px-sm-3 px-md-3 px-lg-3" href="{{- path -}}">{{- page -}}</a>
+{%- endblock page_link -%}
+
+{%- block current_page_link -%}
+  <span class="hover bg-opacity-10 rounded-xs bg-primary text-primary px-2 px-sm-3 px-md-3 px-lg-3" aria-current="page">{{- page -}}</span>
+{%- endblock current_page_link -%}
+
+{%- block previous_page_link -%}
+  <a class="hover nav-link rounded-xs px-2 px-sm-3 px-md-3 px-lg-3" href="{{- path -}}" rel="prev">{{- block('previous_page_message') -}}</a>
+{%- endblock previous_page_link -%}
+
+{%- block previous_page_link_disabled -%}
+  <span class="hover rounded-xs px-2 px-sm-3 px-md-3 px-lg-3">{{- block('previous_page_message') -}}</span>
+{%- endblock previous_page_link_disabled -%}
+
+{%- block previous_page_message -%}
+  {%- if options['prev_message'] is defined -%}
+    {{- options['prev_message'] -}}
+  {%- else -%}
+    <i class="bi bi-chevron-left"></i>
+  {%- endif -%}
+{%- endblock previous_page_message -%}
+
+{%- block next_page_link -%}
+  <a class="hover nav-link rounded-xs px-2 px-sm-3 px-md-3 px-lg-3" href="{{- path -}}" rel="next">{{- block('next_page_message') -}}</a>
+{%- endblock next_page_link -%}
+
+{%- block next_page_link_disabled -%}
+  <span class="hover rounded-xs px-2 px-sm-3 px-md-3 px-lg-3">{{- block('next_page_message') -}}</span>
+{%- endblock next_page_link_disabled -%}
+
+  {%- block next_page_message -%}
+    {%- if options['next_message'] is defined -%}
+      {{- options['next_message'] -}}
+    {%- else -%}
+      <i class="bi bi-chevron-right"></i>
+    {%- endif -%}
+  {%- endblock next_page_message -%}
+
+{%- block last_page_link -%}
+  <a class="hover nav-link rounded-xs px-2 px-sm-3 px-md-3 px-lg-3" href="{{ route_generator.route(pagerfanta.getNbPages()) }}"
+     rel="last">{{- block('last_page_message') -}}</a>
+{%- endblock last_page_link -%}
+
+{%- block last_page_link_disabled -%}
+  <span class="hover rounded-xs px-2 px-sm-3 px-md-3 px-lg-3">{{- block('last_page_message') -}}</span>
+{%- endblock last_page_link_disabled -%}
+
+{%- block last_page_message -%}
+  <i class="bi bi-chevron-bar-right"></i>
+{%- endblock last_page_message -%}
+
+{%- block ellipsis -%}
+  <span class="rounded-xs"><i class="bi bi-three-dots"></i></span>
+{%- endblock ellipsis -%}

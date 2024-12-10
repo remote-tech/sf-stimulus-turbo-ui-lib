@@ -1,4 +1,4 @@
-import {Tooltip} from "../../../../node_modules/bootstrap/dist/js/bootstrap.js";
+import {Tooltip} from "../../../node_modules/bootstrap/dist/js/bootstrap.js";
 
 import jquery from 'jquery';
 import select2 from "select2";

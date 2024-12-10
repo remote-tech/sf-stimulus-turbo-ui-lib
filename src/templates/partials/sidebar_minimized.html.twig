@@ -1,0 +1,43 @@
+<div class="{{ sidebarMinified is same as 'false' ? 'd-none' : 'd-lg-flex'  }} sidebar-toggle bg-white flex-column flex-shrink-0 p-3 border-end"
+     style="width: 81px;" >
+
+  <!-- Toggle sidebar button -->
+  <a type="button" {{ stimulus_controller('sidebar-toggle') }}
+     class="bg-white border d-flex align-items-center text-muted justify-content-center rounded-circle position-absolute"
+     style="height: 24px; width: 24px; top: 26px; left: 68px; z-index: 1021">
+    <i class="bi bi-arrow-right-short"></i>
+  </a>
+
+  <div id="minifiedAppSwitcherController" class="logo d-flex align-items-center">
+    <div class="flex-shrink-0 bg-primary bg-opacity-10 rounded d-flex" style="height: 48px; width: 48px;">
+      <i class="bi {{ sidebarLogo }} align-self-center fs-4 text-primary rounded-circle mx-auto"></i>
+    </div>
+    <script defer type="text/javascript">
+        appLauncher.initPlugin('minifiedAppSwitcherController');
+    </script>
+  </div>
+
+
+
+  <ul class="footer_box nav nav-pills mt-auto mb-3 pt-3">
+    <li>
+      <a href="#"
+            class="hover nav-item nav-link link-dark align-items-center d-flex w-auto list-group-item-action rounded-3 justify-content-center">
+        <i class="bi bi-book-half"></i>
+      </a>
+      <a href="#"
+            class="hover nav-item nav-link link-dark align-items-center d-flex w-auto list-group-item-action rounded-3 justify-content-center">
+        <i class="bi bi-life-preserver"></i>
+      </a>
+      <a href="#"
+         class="{{ app.request.attributes.get('_route') in ['app_account'] ? 'bg-primary bg-opacity-25 text-primary ' : 'hover ' }}
+              nav-item nav-link align-items-center d-flex w-auto list-group-item-action rounded-3">
+        <i class="bi bi-person-circle sticky-start"></i>
+      </a>
+
+    </li>
+  </ul>
+  <div class="small">
+    <p class="text-center text-muted border-top pt-3 small">© RT</p>
+  </div>
+</div>

@@ -1,15 +1,209 @@
-{% extends 'base.html.twig' %}
+{% extends '@rt_sf_ui_lib/base.html.twig' %}
 
 {% block sidebar %}
-    <div class="d-none d-lg-flex">
-      {% set sidebarMinified = app.request.cookies.get('sidebar_min') is same as null ? 'false': app.request.cookies.get('sidebar_min') %}
+  <div class="d-none d-lg-flex">
+    {% set sidebarMinified = app.request.cookies.get('sidebar_min') is same as null ? 'false': app.request.cookies.get('sidebar_min') %}
 
-      {% set sidebarLogo = 'bi-person-badge-fill'  %}
-      {% include 'partials/sidebar.html.twig' %}
-      {% include 'partials/sidebar_minimized.html.twig' %}
+    <!-- SIDEBAR STANDARD -->
+    <div class="sidebar-toggle bg-white border-end flex-column flex-shrink-0 vh-100
+        {{ sidebarMinified is same as 'true' ? 'd-none' : 'd-lg-flex' }}"
+         style="width: 280px;">
+      <!-- App Switcher -->
+      {% include '@rt_sf_ui_lib/components/appSwitcher.html.twig' %}
+
+      <!-- Toggle sidebar button -->
+      <a {{ stimulus_controller('sidebar-toggle') }} type="button"
+                                                     class="bg-white border d-flex align-items-center text-muted justify-content-center rounded-circle position-absolute"
+                                                     style="height: 24px; width: 24px; top: 26px; left: 268px; z-index: 1021">
+        <i class="bi bi-arrow-left-short"></i>
+      </a>
+
+      <div class="dropdown mb-2 px-3">
+      {% block sidebarStandardContextSelector %}
+        <!-- context selector -->
+        <!-- end context selector -->
+      {% endblock %}
+      </div>
+
+      <!-- Nav Links -->
+      <div class="overflow-auto">
+        <ul class="nav flex-column px-3">
+
+          {% block sidebarStandardLinks %}
+            <!-- Links -->
+            <li class="nav-item">
+              <a href=""
+                 class="nav-link list-group-item-action rounded-1 d-flex align-items-center bg-primary bg-opacity-25 text-primary hover">
+                <i class="bi bi-file-earmark-text-fill me-2"></i>
+                <p>Link 1</p>
+
+                <span class="badge bg-white text-dark border ms-auto fw-bold align-self-center p-1"
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="top" style="width: 48px;">
+                <turbo-frame src="" id="sidebar_workspaces_count"
+                             class="placeholder-glow" {{ stimulus_controller('sidebar-frames-count') }}>
+                  <span class="placeholder p-1">12</span>
+                </turbo-frame>
+            </span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href=""
+                 class="nav-link list-group-item-action rounded-1 d-flex align-items-center hover">
+                <i class="bi bi-file-earmark-text-fill me-2"></i>
+                <p>Link 2</p>
+
+                <span class="badge bg-white text-dark border ms-auto fw-bold align-self-center p-1"
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="top" style="width: 48px;">
+                <turbo-frame src="" id="sidebar_workspaces_count"
+                             class="placeholder-glow" {{ stimulus_controller('sidebar-frames-count') }}>
+                  <span class="placeholder p-1">11</span>
+                </turbo-frame>
+            </span>
+              </a>
+            </li>
+            <!-- Links -->
+          {% endblock %}
+
+        </ul>
+      </div>
+
+      <ul class="nav flex-column mt-auto mb-0 px-3 pt-3">
+        {% block sidebarStandardBottomLinks %}
+          <!-- Botttom Links -->
+          <li class="nav-item">
+            <a href="#" class="nav-link list-group-item-action hover rounded-1 d-flex align-items-center">
+              <i class="bi bi-book-half me-2"></i>
+              <p class="mb-0">Documentation</p>
+            </a>
+          </li>
+          <!-- Botttom Links -->
+        {% endblock %}
+
+        {% block sidebarStandardLoggedInUser %}
+          <!-- LoggedIn User link -->
+          <li class="nav-item rounded-1 d-flex justify-content-between ">
+            <div class="nav-item">
+              <a href="#" class="nav-link text-nowrap" style="max-width: 200px;">
+                <i class="bi bi-person-circle me-1 sticky-start"></i>
+                <span class="account-name">
+                  John Doe
+                </span>
+              </a>
+            </div>
+
+            <div class="nav-item">
+              {% if app.user %}
+                <a href="#" class="nav-item text-nowrap d-flex ms-auto align-items-center">
+                  <i class="bi bi-power nav-link link-dark"></i>
+                </a>
+              {% endif %}
+            </div>
+          </li>
+        {% endblock %}
+      </ul>
+
+      <div class="text-center small mt-3 px-3 pb-3">
+        <p class="border-top text-muted small mb-0" style="padding-top: 16px;">
+          © {{ date('now').format('Y') }} REMOTE TECH LTD
+        </p>
+      </div>
     </div>
 
-    {% include 'partials/sidebar_mobile.html.twig' %}
+    <!-- END SIDEBAR STANDARD -->
+
+    <!-- SIDEBAR MINIFIED -->
+    <div
+        class="{{ sidebarMinified is same as 'false' ? 'd-none' : 'd-lg-flex' }} sidebar-toggle bg-white flex-column flex-shrink-0 p-3 border-end"
+        style="width: 81px;">
+
+      <!-- Toggle sidebar button -->
+      <a type="button" {{ stimulus_controller('sidebar-toggle') }}
+         class="bg-white border d-flex align-items-center text-muted justify-content-center rounded-circle position-absolute"
+         style="height: 24px; width: 24px; top: 26px; left: 68px; z-index: 1021">
+        <i class="bi bi-arrow-right-short"></i>
+      </a>
+
+      <div id="minifiedAppSwitcherController" class="logo d-flex align-items-center">
+        <div class="flex-shrink-0 bg-primary bg-opacity-10 rounded d-flex" style="height: 48px; width: 48px;">
+          <i class="bi {{ sidebarLogo }} align-self-center fs-4 text-primary rounded-circle mx-auto"></i>
+        </div>
+        <script defer type="text/javascript">
+            appLauncher.initPlugin('minifiedAppSwitcherController');
+        </script>
+      </div>
+
+      <ul class="footer_box nav nav-pills mt-auto mb-3 pt-3">
+        {% block sidebarMinifiedLinks %}
+          <li>
+            <a href="#"
+               class="hover nav-item nav-link link-dark align-items-center d-flex w-auto list-group-item-action rounded-3 justify-content-center">
+              <i class="bi bi-book-half"></i>
+            </a>
+          </li>
+        {% endblock %}
+      </ul>
+      <div class="small">
+        <p class="text-center text-muted border-top pt-3 small">© RT</p>
+      </div>
+    </div>
+    <!-- END SIDEBAR MINIFIED -->
+  </div>
+
+  <!-- SIDEBAR MOBILE -->
+
+  <nav class="navbar navbar-expand-lg bg-white border-bottom d-block d-lg-none">
+    <div class="container-fluid">
+      <!-- App Switcher -->
+      {% include '@rt_sf_ui_lib/components/appSwitcherMobile.html.twig' %}
+
+      <!-- Burger Menu Button -->
+      <div class="navbar-toggler border-0" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+           aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </div>
+
+      <!-- Nav Links -->
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav" style="height: 90vh;">
+          <!-- Organisation Dropdown -->
+          <li class="nav-item dropdown mt-4">
+            {% block sidebarMobileContextSelector %}
+            {% endblock %}
+          </li>
+          {% block sidebarMobileLinks %}
+          <!-- List Item - Overview -->
+          <li class="nav-item mt-2">
+            <a href="#"
+               class="nav-link list-group-item-action rounded-1 d-flex align-items-center px-3
+                      {{ 'Overview' in app.request.attributes.get('_controller')  ? 'bg-primary bg-opacity-25 text-primary' : '' }}"
+               aria-current="page" style="height: 44px;">
+              <i class="bi bi-speedometer me-2"></i>
+              <p class="mb-0">Overview</p>
+            </a>
+          </li>
+          {% endblock %}
+
+          <li>
+            <a href="{{ path('app_logout') }}"
+               class="nav-link list-group-item-action border rounded-3 d-flex align-items-center justify-content-center px-3"
+               style="height: 44px; width: 44px;">
+              <i class="bi bi-power"></i>
+            </a>
+          </li>
+
+          <li class="text-center small mb-2">
+            <p class="text-muted border-top small mb-0" style="padding-top: 12px;">© {{ date('now').format('Y') }}
+              REMOTE
+              TECH LTD</p>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- END SIDEBAR MOBILE -->
 {% endblock %}
 
 {% block body %}
@@ -22,14 +216,13 @@
           <nav aria-label="breadcrumb" class="small" style="height: 21px;"></nav>
         {% endblock %}
         {% block pageTitle %}
-{#          {% set pageTitle = 'Risk Assesment List' %}#}
           <span class="d-block d-sm-none fw-bold small">{{ pageTitle }}</span>
           <span class="d-none d-sm-block fw-bold fs-5">{{ pageTitle }}</span>
         {% endblock %}
       </div>
       <turbo-frame id="top-right-search-bar" class="d-flex col-6 col-lg-7 col-xl-5">
         <div id="top-right-search-bar-content" class="ms-auto align-self-center">
-        {% block topRightSearchBar %}{% endblock %}
+          {% block topRightSearchBar %}{% endblock %}
         </div>
       </turbo-frame>
 
