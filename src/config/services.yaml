@@ -1,0 +1,22 @@
+services:
+  RemoteTech\SfStimulusTurboUI\Service\:
+    resource: '../../vendor/remote-tech/sf-stimulus-turbo-ui-lib/src/Service/'
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  RemoteTech\SfStimulusTurboUI\TwigExtension\:
+    resource: '../../vendor/remote-tech/sf-stimulus-turbo-ui-lib/src/TwigExtension/'
+    autowire: true
+    autoconfigure: true
+    public: false
+
+# move this to twig config in order to have blocks autocomplete in your project .twig file
+twig:
+  paths:
+    '%kernel.project_dir%/vendor/remote-tech/sf-stimulus-turbo-ui-lib/src/templates': 'rt_sf_ui_lib'
+  form_themes: ['@rt_sf_ui_lib/form_theme/rt_theme.html.twig']
+
+babdev_pagerfanta:
+  default_view: twig
+  default_twig_template: '@rt_sf_ui_lib/partials/pagination_control.html.twig'
