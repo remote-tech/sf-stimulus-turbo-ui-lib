@@ -1,0 +1,14 @@
+{
+  "recipes": {
+    "remote-tech/sf-stimulus-turbo-ui-lib": [
+      "v1.0"
+    ]
+  },
+  "branch": "main",
+  "is_contrib": true,
+  "_links": {
+    "repository": "github.com/remote-tech/sf-stimulus-turbo-ui-lib",
+    "origin_template": "{package}:{version}@github.com/remote-tech/sf-stimulus-turbo-ui-lib:main",
+    "recipe_template": "https://api.github.com/repos/remote-tech/sf-stimulus-turbo-ui-lib/contents/manifest.json"
+  }
+}
