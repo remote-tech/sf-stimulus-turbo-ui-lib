@@ -7,9 +7,9 @@
 
           {% set config = {value: item[key], item: item, column: column} %}
           {% if (column.htmlFile is same as null)  %}
-            {% include  'listing/columns/'~ column.type~'_cell' ~ '.html.twig' with { config: config } only %}
+            {% include  '@rt_sf_ui_lib/listing/columns/'~ column.type~'_cell' ~ '.html.twig' with { config: config } only %}
           {% else %}
-            {% include column.htmlFile with config  %}
+            {% include '@rt_sf_ui_lib/' ~ column.htmlFile with config  %}
           {% endif %}
         {% endfor %}
 

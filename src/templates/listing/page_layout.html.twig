@@ -37,7 +37,7 @@
           </nav>
         </div>
         <div class="d-flex mt-3 mt-lg-2  col-12 col-lg-6 col-xl-6 justify-content-end">
-          {% include 'listing/dynamic_filters.html.twig' %}
+          {% include '@rt_sf_ui_lib/listing/dynamic_filters.html.twig' %}
         </div>
       </div>
     {% endblock %}
@@ -50,7 +50,7 @@
       <turbo-frame class="d-flex flex-column h-100 w-100 " data-turbo-frame="items-list" id="items-list"
                    src="{{ listingUrl }}">
 
-        {% include 'listing/table_layout.html.twig' %}
+        {% include '@rt_sf_ui_lib/listing/table_layout.html.twig' %}
 
         <!-- Bottom Actions  - used for mobile layout -->
         <nav class="navbar bg-white border-top d-block d-lg-none">

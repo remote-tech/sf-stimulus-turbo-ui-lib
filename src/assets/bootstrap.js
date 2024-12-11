@@ -1,6 +1,3 @@
-// import {startStimulusApp} from '@symfony/stimulus-bundle';
-//
-// export const app = startStimulusApp();
 
 //  jquery
 import jquery from 'jquery';
@@ -10,7 +7,7 @@ const jQuery = jquery;
 window.$ = window.jQuery = $;
 
 import {showToast} from "./custom-js/toast.js";
-import {initTooltips, initBootstrapSelect} from "./custom-js/plugins_init.js";
+import {initTooltips, initBootstrapSelect, initDropdown} from "./custom-js/plugins_init.js";
 
 document.addEventListener('turbo:frame-missing', function(event) {
     const { detail: { response, visit } } = event;
@@ -28,10 +25,12 @@ document.addEventListener('turbo:frame-missing', function(event) {
 document.addEventListener('DOMContentLoaded', function(event) {
     initBootstrapSelect(document);
     initTooltips(document);
+    initDropdown(document);
 });
 document.addEventListener("turbo:frame-render", function(event) {
     initBootstrapSelect(event.target);
     initTooltips(event.target);
+    initDropdown(event.target);
 });
 
 //// **********IMPORTANT*******

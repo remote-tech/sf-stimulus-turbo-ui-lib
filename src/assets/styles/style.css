@@ -1,7 +1,7 @@
 @import url('../../../node_modules/bootstrap/dist/css/bootstrap.min.css');
 @import url('../../../node_modules/bootstrap-icons/font/bootstrap-icons.min.css');
 
-/*@import url('global.css');*/
+@import url('global.css');
 @import url('sidebar.css');
 @import url('../../../node_modules/select2/dist/css/select2.min.css');
 @import url('select2-bootstrap5-theme.css');

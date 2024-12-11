@@ -1,9 +1,9 @@
 {% macro list_search_input(name, placeholder) %}
   <!-- Search -->
   <span class="input-group-text bg-white border border-1 border-end-0">
-          <i class="bi bi-search"></i>
-        </span>
-  <input autocomplete="off" id="listSearch" type="text"
+    <i class="bi bi-search"></i>
+  </span>
+  <input autocomplete="off" id="listSearch" type="text" data-controller="listing--search-bar"
          class="form-control border border-1 border-start-0 ps-0 dropdown-toggle"
          data-bs-toggle="dropdown" data-bs-reference="parent" aria-expanded="false" data-bs-auto-close="outside"
          placeholder="{{ placeholder }}" data-storageName="{{ name }}"
@@ -23,6 +23,14 @@
 
 {% macro list_colum_sorting(columns, listingName) %}
 
+  <span class="input-group-text bg-white border border-end-0 hover" data-bs-toggle="dropdown"
+        data-bs-reference="parent" aria-expanded="false" data-bs-auto-close="outside">
+    <a href="#" class="text-decoration-none" id="visibleColumnsButton"
+       data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Manage Columns"
+    >
+      <i class="bi bi-toggle-on"></i>
+    </a>
+  </span>
   <div {{ stimulus_controller('listing--columns-sorting') }} data-listing-name="{{ listingName }}" class="border p-3 dropdown-menu w-100">
     <p class="px-0 fs-6 fw-bold mt-2">Visible Columns</p>
     <div class="info_reorder d-flex align-items-center mt-4">
@@ -44,15 +52,12 @@
         <div data-id="{{ key }}" draggable="true"
              class="hover form-check d-flex border-0 rounded-2 py-1 px-2 mb-1 list-group-item-action">
           <input data-id="{{ key }}" checked="checked" class="form-check-input ms-2 my-auto" type="checkbox"/>
-          <label class="form-check-label flex-grow-1 ms-2 my-auto"
-                 for="flexCheckDefault_1">{{ column.label }}</label>
+          <label class="form-check-label flex-grow-1 ms-2 my-auto" for="flexCheckDefault_1">{{ column.label }}</label>
           <i class="bi bi-grip-horizontal fs-5 me-1 my-auto" style="cursor: grab;"></i>
         </div>
       {% elseif column.isListIndex is same as true %}
-        <div data-id="{{ key }}"
-             class="hover form-check d-flex border-0 rounded-2 py-1 px-2 mb-1 list-group-item-action">
-          <input data-id="{{ key }}" class="form-check-input ms-2 my-auto" type="checkbox" checked="checked"
-                 disabled="disabled"/>
+        <div data-id="{{ key }}" class="hover form-check d-flex border-0 rounded-2 py-1 px-2 mb-1 list-group-item-action">
+          <input data-id="{{ key }}" class="form-check-input ms-2 my-auto" type="checkbox" checked="checked" disabled="disabled"/>
           <label class="form-check-label flex-grow-1 ms-2 my-auto">{{ column.label }}</label>
         </div>
       {% endif %}
@@ -77,8 +82,7 @@
           <h1 class="modal-title fs-5" id="exampleModalLabel">Columns</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body d-flex flex-column pb-0" data-listing-name="{{ listingName }}"
-            {{ stimulus_controller('listing--columns-sorting') }}>
+        <div class="modal-body d-flex flex-column pb-0" data-listing-name="{{ listingName }}" {{ stimulus_controller('listing--columns-sorting') }}>
           {{ _self.sortingContainerLayout(columns) }}
         </div>
       </div>
@@ -87,8 +91,7 @@
 {% endmacro %}
 
 {% macro bottomSearchWidget() %}
-  <a href="#" class="d-flex flex-column align-items-center text-decoration-none small pt-2" data-bs-toggle="modal"
-     data-bs-target="#searchModal">
+  <a href="#" class="d-flex flex-column align-items-center text-decoration-none small pt-2" data-bs-toggle="modal" data-bs-target="#searchModal">
     <i class="bi bi-search fs-5"></i>
     <p class="small">Search</p>
   </a>
