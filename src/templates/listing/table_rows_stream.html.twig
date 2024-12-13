@@ -9,7 +9,7 @@
           {% if (column.htmlFile is same as null)  %}
             {% include  '@rt_sf_ui_lib/listing/columns/'~ column.type~'_cell' ~ '.html.twig' with { config: config } only %}
           {% else %}
-            {% include '@rt_sf_ui_lib/' ~ column.htmlFile with config  %}
+            {% include '' ~ column.htmlFile with config  %}
           {% endif %}
         {% endfor %}
 
