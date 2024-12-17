@@ -15,7 +15,7 @@ module.exports = {
     },
     output: {
         filename: '[name].js', // Use placeholders to create unique filenames
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'public/dist'),
     },
     // entry: './src/assets/lib_init.js', // Entry point
     // output: {
