@@ -1,5 +1,6 @@
 import {Controller} from '@hotwired/stimulus';
 import {frameLoading} from "./utils.js";
+// import select2 from "select2";
 
 export default class extends Controller {
     connect() {

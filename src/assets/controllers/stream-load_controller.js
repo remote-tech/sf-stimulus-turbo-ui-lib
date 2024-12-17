@@ -1,5 +1,6 @@
 import {Controller} from '@hotwired/stimulus'
 import {initTooltips, initBootstrapSelect} from "../custom-js/plugins_init.js";
+import $ from 'jquery';
 
 export default class extends Controller {
     connect() {

@@ -2,6 +2,7 @@ import {Controller} from '@hotwired/stimulus';
 import {Modal} from 'bootstrap';
 import {useDispatch} from 'stimulus-use';
 import {showToast} from "../custom-js/toast.js";
+// import $ from 'jquery';
 
 // !!!!!!!!! deprecated -  use base-modal-form
 export default class extends Controller {

@@ -2,6 +2,7 @@ import {Controller} from '@hotwired/stimulus'
 import axios from 'axios'
 import {Modal} from 'bootstrap'
 import {useDispatch} from 'stimulus-use';
+import $ from 'jquery';
 import {showToast} from '../custom-js/toast.js';
 
 export default class extends Controller {

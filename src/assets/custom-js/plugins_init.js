@@ -1,9 +1,9 @@
-import {Tooltip, Dropdown} from "../../../node_modules/bootstrap/dist/js/bootstrap.js";
+import {Tooltip, Dropdown} from "bootstrap";
 
-// import jquery from 'jquery';
+import $ from 'jquery';
+const jquery = $;
+window.$ = window.jQuery = $;
 import select2 from "select2";
-
-// jquery.select2 = select2();
 
 export function initBootstrapSelect(element) {
     element.querySelectorAll('select.bootstrapStyle').forEach(

@@ -8,6 +8,7 @@ import {DateFilter} from "../filters/DateFilter.js";
 import {EnumFilter} from "../filters/EnumFilter.js";
 import morphdom from "morphdom";
 import {showToast} from "../../custom-js/toast.js";
+// import select2 from "select2";
 
 export default class extends Controller {
     operationContainerClass = '.operation-container';

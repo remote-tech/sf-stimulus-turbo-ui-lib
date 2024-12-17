@@ -1,6 +1,6 @@
 import {BaseFilter} from "./BaseFilters.js";
-import BootstrapDateRangePicker from "../../../../node_modules/bootstrap-daterangepicker/daterangepicker.js";
-import moment from "../../../../node_modules/moment/moment.js";
+import BootstrapDateRangePicker from "bootstrap-daterangepicker";
+import moment from "moment";
 
 export class DateFilter extends BaseFilter {
     operators = {'between': 'between'}

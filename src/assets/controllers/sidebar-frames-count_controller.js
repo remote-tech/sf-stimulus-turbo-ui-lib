@@ -1,5 +1,4 @@
 import {Controller} from '@hotwired/stimulus'
-import hljs from "highlightjs";
 
 export default class extends Controller {
 
