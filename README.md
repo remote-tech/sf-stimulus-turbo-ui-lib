@@ -32,14 +32,14 @@ To install node modules in the library add to composer.json scripts the followin
 ```json
 {
   "scripts": {
-    "sf-stimulus-turbo-ui-lib-npm-install": [
-      "cd vendor/remote-tech/sf-stimulus-turbo-ui-lib && npm install"
+    "sf-stimulus-turbo-ui-lib-assets-link": [
+      "ln -s ../../vendor/remote-tech/sf-stimulus-turbo-ui-lib/public public/bundles/rt-stimulus-ui-lib"
     ],
     "post-install-cmd": [
-      "@sf-stimulus-turbo-ui-lib-npm-install"
+      "@sf-stimulus-turbo-ui-lib-assets-link"
     ],
     "post-update-cmd": [
-      "@sf-stimulus-turbo-ui-lib-npm-install"
+      "@sf-stimulus-turbo-ui-lib-assets-link"
     ]
   }
 }
@@ -47,42 +47,18 @@ To install node modules in the library add to composer.json scripts the followin
 
 #### Load stimulus controllers from the lib and make them available seamlessly in the project
 
-In project install, using npm 
-```bash
-npm install stimulus-controller-resolver
-```
-
 In project dir /assets/bootstrap.js add
 ```js
-import StimulusControllerResolver from 'stimulus-controller-resolver'
-StimulusControllerResolver.install(app, async controllerName => (
-    (await import(`../vendor/remote-tech/sf-stimulus-turbo-ui-lib/src/assets/controllers/${controllerName}_controller.js`)).default
-))
-
-import '../vendor/remote-tech/sf-stimulus-turbo-ui-lib/src/assets/bootstrap.js'
+import  '../public/bundles/rt-stimulus-ui-lib/dist/styles.css'
+import {sf_ui_lib} from '../public/bundles/rt-stimulus-ui-lib/dist/main.js'
+// register rt UI lib controllers
+Object.entries(sf_ui_lib.controllers).forEach(([name, controller]) => {
+    app.register(name, controller);
+});
+// init global plugins like jquery select2 or bootstrap tooltips
+sf_ui_lib.initializeGlobalEventListeners();
 ```
 
-#### Load css from the lib in project /assets directory
-
-```css
-@import url('../../vendor/remote-tech/sf-stimulus-turbo-ui-lib/src/assets/styles/style.css');
-```
-
-#### Expose lib custom functionality (like toasts functions) to be available in project /assets javascript
-
-Using Webpack Encore
-* install expose-loader using npm
-
-```js
-    const path = require('path');
-    Encore.addLoader({
-      test: path.resolve(__dirname, './vendor/remote-tech/sf-stimulus-turbo-ui-lib/src/assets/custom-js/toast.js'),
-      loader: 'expose-loader',
-      options: {
-        exposes: 'toasts' // The name of the global variable
-      }
-    });
-```
 
 #### Import lib .twig files to project 
 ```yaml
@@ -107,7 +83,7 @@ in templates/layout.html.twig
 {% endblock %}
 
 {% block stylesheets %}
-    {{ encore_entry_link_tags('appcss') }}
+    {{ encore_entry_link_tags('app') }}
 {% endblock %}
 ```
 
