@@ -23,10 +23,12 @@ export function initTooltips(element) {
 }
 
 export function initDropdown(element) {
-    element.querySelectorAll('[data-bs-toggle="dropdown"]').forEach(elem => {
-        elem.addEventListener('click',  () => {
-            const dropdown = new Dropdown(elem);
-            dropdown.toggle();
-        });
-    });
+    // this seems is not needed - maybe use it in the future
+    // element.querySelectorAll('[data-bs-toggle="dropdown"]').forEach(elem => {
+    //     alert('gfhf');
+    //     elem.addEventListener('click',  () => {
+    //         const dropdown = new Dropdown(elem);
+    //         dropdown.toggle();
+    //     });
+    // });
 }

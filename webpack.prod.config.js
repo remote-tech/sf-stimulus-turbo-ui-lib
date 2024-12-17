@@ -1,77 +1,62 @@
 const path = require('path');
+
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-    // entry: {
-    //     main: './src/assets/lib_init.js',
-    //     controllers: './src/assets/controllers.js',
-    // },
     entry: {
         main: './src/assets/lib_init.js', // Main JavaScript entry
         styles: './src/assets/styles/style.css', // CSS entry
     },
     output: {
-        filename: '[name].js', // Use placeholders to create unique filenames
-        path: path.resolve(__dirname, 'public/dist'),
+        filename: '[name].js',
+        path: path.resolve(__dirname, 'public/dist'), // Output directory
+        library: 'sf_ui_lib',
+        libraryTarget: 'umd',
+        publicPath: 'bundles/rt-stimulus-ui-lib/dist/'
     },
-    // entry: './src/assets/lib_init.js', // Entry point
-    // output: {
-    //     filename: 'controllers.js', // Output JS file
-    //     path: path.resolve(__dirname, 'dist'), // Output directory
-    //     library: 'sf_ui_lib',
-    //     libraryTarget: 'umd',
-    // },
     module: {
         rules: [
             {
-                test: /\.css$/,
+                test: /\.css$/, // Handle .css files
                 use: [
-                    MiniCssExtractPlugin.loader,
+                    MiniCssExtractPlugin.loader, // Extract CSS to a file
                     'css-loader', // Convert CSS into CommonJS
                 ],
             },
             {
-                test: /\.js$/,
-                exclude: /node_modules/,
+                test: /\.js$/, // Handle .js files
+                exclude: /node_modules/, // Exclude node_modules
                 use: {
                     loader: 'babel-loader', // Optional, for ES6+ support
                 },
             },
             {
-                test: /\.(png|jpe?g|gif|svg)$/, // Optimize images
-                type: 'asset',
+                test: /\.(woff|woff2|eot|ttf|otf)$/, // Match font files
+                type: 'asset/resource',
                 generator: {
-                    filename: 'images/[hash][ext][query]',
+                    filename: '[name][ext]', // Custom output for fonts
+                    publicPath: './vendor/remote-tech/sf-stimulus-turbo-ui-lib/public/dist/', // Override public path for font files
                 },
             },
         ],
     },
-
-    mode: 'production',
-    optimization: {
-        minimize: true,
-        minimizer: [
-            new TerserPlugin({ // Optimize JavaScript
-                terserOptions: {
-                    compress: {
-                        drop_console: true, // Remove console.logs
-                    },
-                },
-            }),
-            new CssMinimizerPlugin(), // Optimize CSS
-        ],
-        splitChunks: { // Split vendor and app code
-            chunks: 'all',
-        },
-        runtimeChunk: 'single', // Separate runtime chunk
-    },
     plugins: [
-        new CleanWebpackPlugin(), // Clean output directory
-        new MiniCssExtractPlugin({ // Extract CSS into files
-            filename: '[name].css',
+        new MiniCssExtractPlugin({
+            filename: 'styles.css', // Output CSS file
         }),
     ],
+
+    mode: 'production', // Set to 'production' for minified output
+    performance: {
+        hints: false,
+        maxEntrypointSize: 512000,
+        maxAssetSize: 512000
+    },
+    optimization: {
+        usedExports: true, // Mark used exports,
+        splitChunks: {
+            minSize: 10000,
+            maxSize: 250000,
+        }
+    }
 };
