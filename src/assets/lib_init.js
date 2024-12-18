@@ -9,3 +9,7 @@ export const sf_ui_lib = {
     utilities,
     initializeGlobalEventListeners,
 };
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = sf_ui_lib;
+}
