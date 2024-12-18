@@ -53,6 +53,7 @@ module.exports = {
         maxAssetSize: 512000
     },
     optimization: {
+        runtimeChunk: 'single',
         usedExports: true, // Mark used exports,
         splitChunks: {
             minSize: 10000,
