@@ -12,7 +12,7 @@ module.exports = {
         path: path.resolve(__dirname, 'public/dist'), // Output directory
         // library: 'sf_ui_lib',
         libraryTarget: 'module',
-        publicPath: 'bundles/rt-stimulus-ui-lib/dist/'
+        publicPath: '/bundles/rt-stimulus-ui-lib/dist/'
     },
     experiments: {
         outputModule: true, // Enable module output
