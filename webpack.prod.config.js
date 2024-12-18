@@ -10,9 +10,12 @@ module.exports = {
     output: {
         filename: '[name].js',
         path: path.resolve(__dirname, 'public/dist'), // Output directory
-        library: 'sf_ui_lib',
-        libraryTarget: 'umd',
+        // library: 'sf_ui_lib',
+        libraryTarget: 'module',
         publicPath: 'bundles/rt-stimulus-ui-lib/dist/'
+    },
+    experiments: {
+        outputModule: true, // Enable module output
     },
     module: {
         rules: [
