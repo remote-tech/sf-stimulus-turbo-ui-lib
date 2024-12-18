@@ -38,7 +38,7 @@ module.exports = {
                 type: 'asset/resource',
                 generator: {
                     filename: '[name][ext]', // Custom output for fonts
-                    publicPath: './vendor/remote-tech/sf-stimulus-turbo-ui-lib/public/dist/', // Override public path for font files
+                    publicPath: '/bundles/rt-stimulus-ui-lib/dist/', // Override public path for font files
                 },
             },
         ],
