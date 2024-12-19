@@ -13,19 +13,8 @@ final class RemoteTechSfStimulusTurboUIBundle extends Bundle
     {
         parent::build($container);
 
-//        $container->addCompilerPass(new RegisterPagerfantaViewsPass());
-//        $container->addCompilerPass(new RegisterTwigUndefinedCallablePass());
     }
 
-//    public function getContainerExtension(): ?ExtensionInterface
-//    {
-//        if (!isset($this->extension)) {
-//            $this->extension = new BabDevPagerfantaExtension();
-//        }
-//
-//        return $this->extension ?: null;
-//    }
-//
     public function getPath(): string
     {
         return \dirname(__DIR__);
