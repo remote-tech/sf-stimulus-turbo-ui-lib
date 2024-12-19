@@ -13,7 +13,7 @@ module.exports = {
         path: path.resolve(__dirname, 'public/dist-wpk'), // Output directory
         // library: 'sf_ui_lib',
         libraryTarget: 'module',
-        publicPath: '/bundles/rt-stimulus-ui-lib/dist-wpk/'
+        publicPath: '/bundles/remotetechsfstimulusturboui/dist-wpk/'
     },
     experiments: {
         outputModule: true, // Enable module output
@@ -40,8 +40,7 @@ module.exports = {
                 type: 'asset/resource',
                 generator: {
                     filename: '[name][ext]', // Custom output for fonts
-                    // publicPath: '/bundles/rt-stimulus-ui-lib/dist/',
-                    publicPath: './vendor/remote-tech/sf-stimulus-turbo-ui-lib/public/dist-wpk/',// Override public path for font files
+                    publicPath: './vendor/remote-tech/remotetechsfstimulusturboui/public/dist-wpk/',// Override public path for font files
                 },
             },
         ],

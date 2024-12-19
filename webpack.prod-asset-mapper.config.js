@@ -12,7 +12,7 @@ module.exports = {
         filename: '[name].js',
         path: path.resolve(__dirname, 'public/dist-asm'), // Output directory
         libraryTarget: 'module',
-        publicPath: '/bundles/rt-stimulus-ui-lib/dist-asm/'
+        publicPath: '/bundles/remotetechsfstimulusturboui/dist-asm/'
     },
     experiments: {
         outputModule: true, // Enable module output
@@ -39,8 +39,7 @@ module.exports = {
                 type: 'asset/resource',
                 generator: {
                     filename: '[name][ext]', // Custom output for fonts
-                    publicPath: '/bundles/rt-stimulus-ui-lib/dist-asm/',
-                    // publicPath: './vendor/remote-tech/sf-stimulus-turbo-ui-lib/public/dist/',// Override public path for font files
+                    publicPath: '/bundles/remotetechsfstimulusturboui/dist-asm/',
                 },
             },
         ],

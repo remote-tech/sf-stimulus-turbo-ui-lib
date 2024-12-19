@@ -2,6 +2,7 @@
   "name": "remote-tech/sf-stimulus-turbo-ui-lib",
   "description": "ui components and helpers for symfony applications that use stimulus and turbo frames",
   "minimum-stability": "stable",
+  "type": "symfony-bundle",
   "license": "proprietary",
   "authors": [
     {
