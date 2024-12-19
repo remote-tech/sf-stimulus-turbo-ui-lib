@@ -1,3 +1,4 @@
+// used to build assets to be used in Symfony projects that use AssetMapper  as assets manager
 const path = require('path');
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -9,14 +10,14 @@ module.exports = {
     },
     output: {
         filename: '[name].js',
-        path: path.resolve(__dirname, 'public/dist'), // Output directory
-        // library: 'sf_ui_lib',
+        path: path.resolve(__dirname, 'public/dist-asm'), // Output directory
         libraryTarget: 'module',
-        publicPath: '/bundles/rt-stimulus-ui-lib/dist/'
+        publicPath: '/bundles/rt-stimulus-ui-lib/dist-asm/'
     },
     experiments: {
         outputModule: true, // Enable module output
     },
+
     module: {
         rules: [
             {
@@ -38,7 +39,8 @@ module.exports = {
                 type: 'asset/resource',
                 generator: {
                     filename: '[name][ext]', // Custom output for fonts
-                    publicPath: '/bundles/rt-stimulus-ui-lib/dist/', // Override public path for font files
+                    publicPath: '/bundles/rt-stimulus-ui-lib/dist-asm/',
+                    // publicPath: './vendor/remote-tech/sf-stimulus-turbo-ui-lib/public/dist/',// Override public path for font files
                 },
             },
         ],
