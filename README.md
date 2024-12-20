@@ -5,8 +5,6 @@ A library that provides some ui helpers and stimulus generic controllers and tur
 
 * symfony framework >=6.4
 * install stimulus and turbo-frames in project
-* bootstrap 5
-* bootstrap-icons
 
 
 ## Installation & Config
@@ -22,35 +20,43 @@ Add to composer.json (use a Github token, because is a private repo)
   ]
 }
 ```
+in order to run the recipe when installing add to composer.json
+
+```json
+{
+  "extra": {
+    "symfony": {
+      "allow-contrib": false,
+      "require": "6.4.*",
+      "endpoint": [
+        "https://api.github.com/repos/remote-tech/sf-stimulus-turbo-ui-lib/contents/index.json"
+      ]
+    }
+  }
+}
+```
 
 Run 
 ```bash 
 php composer.phar require remote-tech/sf-stimulus-turbo-ui-lib:dev-main //or any other version
 ```
 
-To install node modules in the library add to composer.json scripts the following
-```json
-{
-  "scripts": {
-    "sf-stimulus-turbo-ui-lib-assets-link": [
-      "ln -s ../../vendor/remote-tech/sf-stimulus-turbo-ui-lib/public public/bundles/rt-stimulus-ui-lib"
-    ],
-    "post-install-cmd": [
-      "@sf-stimulus-turbo-ui-lib-assets-link"
-    ],
-    "post-update-cmd": [
-      "@sf-stimulus-turbo-ui-lib-assets-link"
-    ]
-  }
-}
-```
 
 #### Load stimulus controllers from the lib and make them available seamlessly in the project
 
-In project dir /assets/bootstrap.js add
+Assets are installed in ``` public/bundles/remotetechsfstimulusturboui/ ``` 
+If project uses assetMapper for assets manager use build from the ``` dist-asm ``` folder
+If project uses WebpackEncore for assets manager use build from the ``` dist-wpk ``` folder
+
+There are 2 entrypoints in the builds director: ```main.js ``` and ```styles.css```
+
+
+To use the Library in project dir /assets/bootstrap.js add
 ```js
 import  '../public/bundles/rt-stimulus-ui-lib/dist/styles.css'
+
 import {sf_ui_lib} from '../public/bundles/rt-stimulus-ui-lib/dist/main.js'
+
 // register rt UI lib controllers
 Object.entries(sf_ui_lib.controllers).forEach(([name, controller]) => {
     app.register(name, controller);
@@ -59,8 +65,33 @@ Object.entries(sf_ui_lib.controllers).forEach(([name, controller]) => {
 sf_ui_lib.initializeGlobalEventListeners();
 ```
 
+The ```sf_ui_lib``` exposes the stimulus controllers, the initializeGlobalEventListeners and utilities.
 
-#### Import lib .twig files to project 
+To add custom logic to the global events handlers ```initializeGlobalEventListeners```  you can call it like:
+```js
+// init global plugins like jquery select2 or bootstrap tooltips
+sf_ui_lib.initializeGlobalEventListeners(
+    {
+        domLoaded: (event) => {
+            // add custom logic here
+        },
+        frameMissing: (event) => {
+            // add custom logic here
+        },
+        frameRendered: (event) => {
+            // add custom logic here
+        }
+    }
+);
+```
+The ```utilities``` provides the following functions that can be used individually:
+- initBootstrapSelect(element)
+- initDropdown(element)
+- initTooltips(element)
+- showToast(type, message, title = 'Result', icon= null)
+
+
+#### (OPTIONAL) Import lib .twig files to project (in order to have autocomplete for blocks, otherwise don't since it is provided by default by the recipe)
 ```yaml
 twig:
     paths:
