@@ -9,7 +9,7 @@ window.$ = window.jQuery = $;
 
 
 // Set up global event listeners
-function initializeGlobalEventListeners() {
+function initializeGlobalEventListeners(callbacks) {
     document.addEventListener('turbo:frame-missing', function (event) {
         console.log('turbo:frame-missing', event);
         const {detail: {response, visit}} = event;
@@ -20,6 +20,8 @@ function initializeGlobalEventListeners() {
             showToast('danger', 'A page reload is needed. Click <a href="javascript:location.reload();">here</a> to refresh');
             return;
         }
+        if (callbacks !== undefined)
+            callbacks.hasOwnProperty('frameMissing') ? callbacks['frameMissing'](event) : null;
 
         console.log('Failed to retrieve frame content', event);
         showToast('danger', 'An error occurred. Please try again. If the problem persists, contact Customer Support');
@@ -31,6 +33,8 @@ function initializeGlobalEventListeners() {
         initBootstrapSelect(document);
         initTooltips(document);
         initDropdown(document);
+        if (callbacks !== undefined)
+            callbacks.hasOwnProperty('domLoaded') ? callbacks['domLoaded'](event) : null;
     });
 
     document.addEventListener("turbo:frame-render", function (event) {
@@ -38,6 +42,8 @@ function initializeGlobalEventListeners() {
         initBootstrapSelect(event.target);
         initTooltips(event.target);
         initDropdown(event.target);
+        if (callbacks !== undefined)
+            callbacks.hasOwnProperty('frameRendered') ? callbacks['frameRendered'](event) : null;
     });
 
 //// **********IMPORTANT*******
