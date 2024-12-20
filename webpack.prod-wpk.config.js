@@ -40,7 +40,7 @@ module.exports = {
                 type: 'asset/resource',
                 generator: {
                     filename: '[name][ext]', // Custom output for fonts
-                    publicPath: './vendor/remote-tech/remotetechsfstimulusturboui/public/dist-wpk/',// Override public path for font files
+                    publicPath: './vendor/remote-tech/rt-stimulus-ui-lib/public/dist-wpk/',// Override public path for font files
                 },
             },
         ],
