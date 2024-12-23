@@ -1,5 +1,6 @@
 import {Controller} from '@hotwired/stimulus'
 import {showToast} from "../../custom-js/toast.js";
+import $ from "jquery";
 
 export default class extends Controller {
     listActionsClass = '.list-actions';

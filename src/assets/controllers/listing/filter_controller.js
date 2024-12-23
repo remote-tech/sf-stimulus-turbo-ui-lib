@@ -3,6 +3,7 @@ import BootstrapDateRangePicker from 'bootstrap-daterangepicker'
 import moment from 'moment'
 import('bootstrap-daterangepicker/daterangepicker.css')
 import {frameLoading} from "./utils.js";
+import $ from "jquery";
 
 export default class extends Controller {
     connect() {

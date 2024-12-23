@@ -1,4 +1,5 @@
 import {Controller} from '@hotwired/stimulus'
+import $ from "jquery";
 
 export default class extends Controller {
     sortableList = $(this.element).find('.sortable-container')[0];

@@ -4,8 +4,8 @@ import {initBootstrapSelect, initDropdown, initTooltips} from "./custom-js/plugi
 import jquery from 'jquery';
 
 const $ = jquery;
-const jQuery = jquery;
-window.$ = window.jQuery = $;
+// const jQuery = jquery;
+// window.$ = window.jQuery = $;
 
 
 // Set up global event listeners

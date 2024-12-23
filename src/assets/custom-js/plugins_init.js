@@ -1,8 +1,8 @@
 import {Tooltip, Dropdown} from "bootstrap";
 
 import $ from 'jquery';
-const jquery = $;
-window.$ = window.jQuery = $;
+// const jquery = $;
+// window.$ = window.jQuery = $;
 import select2 from "select2";
 
 export function initBootstrapSelect(element) {
