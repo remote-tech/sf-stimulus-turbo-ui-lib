@@ -53,24 +53,24 @@ There are 2 entrypoints in the builds director: ```main.js ``` and ```styles.css
 
 To use the Library in project dir /assets/bootstrap.js add
 ```js
+// styles can also be included directy in html <head> section
 import  '../public/bundles/rt-stimulus-ui-lib/dist/styles.css'
 
-import {sf_ui_lib} from '../public/bundles/rt-stimulus-ui-lib/dist/main.js'
+import {rt_controllers, rt_initializeGlobalEventListeners, rt_jquery, rt_axios} from '../public/bundles/remotetechsfstimulusturboui/dist-wpk/main.js'
+import {rt_utilities, rt_bootstrap, rt_select2, rt_BootstrapDateRangePicker} from "../public/bundles/remotetechsfstimulusturboui/dist-wpk/main.js";
 
 // register rt UI lib controllers
-Object.entries(sf_ui_lib.controllers).forEach(([name, controller]) => {
+Object.entries(rt_controllers).forEach(([name, controller]) => {
     app.register(name, controller);
 });
-// init global plugins like jquery select2 or bootstrap tooltips
-sf_ui_lib.initializeGlobalEventListeners();
 ```
 
-The ```sf_ui_lib``` exposes the stimulus controllers, the initializeGlobalEventListeners and utilities.
+The library exports stimulus controllers, bootstrap modules, axios, jquery, select2, BootstrapDateRangePicker, initializeGlobalEventListeners and utilities.
 
-To add custom logic to the global events handlers ```initializeGlobalEventListeners```  you can call it like:
+To add custom logic to the global events handlers ```rt_initializeGlobalEventListeners``` you can call it like:
 ```js
 // init global plugins like jquery select2 or bootstrap tooltips
-sf_ui_lib.initializeGlobalEventListeners(
+rt_initializeGlobalEventListeners(
     {
         domLoaded: (event) => {
             // add custom logic here

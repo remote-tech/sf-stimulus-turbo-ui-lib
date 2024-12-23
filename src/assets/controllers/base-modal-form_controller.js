@@ -2,10 +2,8 @@ import {Controller} from '@hotwired/stimulus';
 import {Modal} from 'bootstrap';
 import {useDispatch} from 'stimulus-use';
 import {showToast} from "../custom-js/toast.js";
-import modalForm_controller from "./modal-form_controller.js";
-// import $ from 'jquery';
 
-export default class extends modalForm_controller {
+export default class extends Controller {
     modal = null;
     modalElement = document.querySelector('.base-modal')
     modalFrame = this.modalElement.querySelector('.modal-frame')
