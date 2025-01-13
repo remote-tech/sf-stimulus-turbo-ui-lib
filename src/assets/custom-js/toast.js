@@ -6,7 +6,7 @@ export function showToast(type, message, title = 'Result', icon= null) {
 
     let toast = new Toast(toastElement, {
         autohide: true,
-        delay: 500000
+        delay: 5000
     });
 
     const toastBody = document.createElement('div');
