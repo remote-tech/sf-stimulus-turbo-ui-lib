@@ -410,3 +410,17 @@
 {% block html_widget %}
     {{ html|raw }}
 {% endblock %}
+
+{% block image_preview_widget %}
+    <div data-controller="image-preview">
+        <div id="image-preview-container" class="image-preview-container text-center w-100 border rounded w-100">
+            <img id="image-preview"
+                 src="{{ value ?: preview_image_path }}"
+                 class="img-thumbnail border-0"
+                 role="button"
+                 style="max-height: 200px"
+                 alt="Image preview">
+        </div>
+        {{ form_widget(form, { attr: { class: 'd-none' } }) }}
+    </div>
+{% endblock %}
