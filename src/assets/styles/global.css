@@ -264,3 +264,8 @@ a.main-link:first-of-type {
         bottom: 124px;
     }
 }
+
+.required::after {
+    content: " *"; /* Adds an asterisk */
+    color: red; /* Makes it red */
+}
