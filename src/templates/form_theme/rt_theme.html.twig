@@ -413,13 +413,18 @@
 
 {% block image_preview_widget %}
     <div data-controller="image-preview">
-        <div id="image-preview-container" class="image-preview-container text-center w-100 border rounded w-100">
-            <img id="image-preview"
-                 src="{{ value ?: preview_image_path }}"
-                 class="img-thumbnail border-0"
-                 role="button"
-                 style="max-height: 200px"
-                 alt="Image preview">
+        <div role="button" id="image-preview" class="d-flex justify-content-center w-100 align-items-center ">
+            {% if preview_image_path is not same as null and preview_image_path is not same as '' %}
+                <img src="{{ preview_image_path }}"
+                     role="button" style="object-fit: cover" width="200" height="200"  alt="Image preview">
+            {% else %}
+                <div class="flex-column hover image-preview-container  p-3 rounded text-center w-100"
+                     style="border: 1px dashed #dee2e6"
+                >
+                    <i class="bi bi-image fs-2 opacity-50"></i>
+                    <p class="opacity-50 small">Drag &amp; Drop or Browse files to upload</p>
+                </div>
+            {% endif %}
         </div>
         {{ form_widget(form, { attr: { class: 'd-none' } }) }}
     </div>

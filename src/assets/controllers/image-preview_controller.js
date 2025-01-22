@@ -14,9 +14,16 @@ export default class extends Controller {
     updatePreview(event) {
         const file = event.target.files[0];
         if (file) {
+            const img = document.createElement('img')
+            img.width = 200;
+            img.height = 200;
+            img.style.objectFit = 'cover';
+            img.role = 'button'
+            this.preview.innerHTML = '';
+            this.preview.appendChild(img)
             const reader = new FileReader();
             reader.onload = (e) => {
-                this.preview.src = e.target.result;
+                img.src = e.target.result;
             };
             reader.readAsDataURL(file);
         }
