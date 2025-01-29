@@ -275,7 +275,7 @@ a.main-link:first-of-type {
     }
 }
 
-.required::after {
+label.required::after {
     content: " *"; /* Adds an asterisk */
     color: red; /* Makes it red */
 }

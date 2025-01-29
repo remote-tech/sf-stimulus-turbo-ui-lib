@@ -18,18 +18,27 @@ export default class extends Controller {
     }
 
     async openModal(event) {
-        let textClass = Array.from(this.element.classList).find(className => className.startsWith('text-'));
-
-        const textValueClass = textClass ? textClass.slice(5) : 'primary'
-
+        let textClass = Array.from(this.element.classList).find(className => className.includes('danger') || className.includes('success'));
+        let textValueClass = 'primary'
+        if (textClass.includes('danger')) {
+            textValueClass = 'danger'
+        }
+        if (textClass.includes('success')) {
+            textValueClass = 'success'
+        }
         const iconContainer = this.modalElement.querySelector('.confirmationModalIconContainer')
 
-        const buttonIcon = this.element.querySelector('i')
-        let iClass = Array.from(buttonIcon.classList).find(className => className.startsWith('bi-'));
-        if (!iClass) {
-            iClass = 'bi-clipboard-check';
-        }
         const icon = document.createElement('i')
+
+        let iClass = 'bi-clipboard-check';
+
+        const buttonIcon = this.element.querySelector('i')
+        if (buttonIcon) {
+            iClass = Array.from(buttonIcon.classList).find(className => className.startsWith('bi-'));
+        }
+        icon.classList.add(iClass)
+
+
         icon.classList.add('align-self-center', 'fs-2', 'bi', 'mx-auto')
         icon.classList.add(iClass)
 
@@ -44,6 +53,7 @@ export default class extends Controller {
         const title = this.element.dataset['modalTitle'] ? this.element.dataset['modalTitle'] : 'Confirm';
         const message = this.element.dataset['modalMessage'];
         const path = this.element.dataset['modalPath'];
+        const pathMethod = this.element.dataset['pathMethod'] ?? 'get';
         const reloadFrameId = this.element.dataset['reloadFrameId'];
         const gatherFromCheckboxes = this.element.dataset['modalGatherCheckboxes'];
 
@@ -56,7 +66,9 @@ export default class extends Controller {
 
         const newSubmitBtn = document.createElement('button')
         newSubmitBtn.dataset['submit'] = path
-
+        if (null !== pathMethod) {
+            newSubmitBtn.dataset['pathMethod'] = pathMethod
+        }
         newSubmitBtn.dataset['reloadFrameId'] = reloadFrameId;
         newSubmitBtn.classList.add('btn-' + textValueClass, 'confirmationModalButton', 'btn', 'text-center', 'w-100');
         newSubmitBtn.textContent = 'Confirm'
@@ -91,6 +103,9 @@ export default class extends Controller {
 
         if (ids.length > 0) {
             method = 'post';
+        }
+        if (submitButton.dataset['pathMethod']) {
+            method = submitButton.dataset['pathMethod']
         }
 
         axios[method](
